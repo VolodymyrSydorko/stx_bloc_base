@@ -10,10 +10,7 @@
 .history
 .svn/
 
-*.env
-
-#flutter version managers
-.fvm/
+#*.env
 
 # IntelliJ related
 *.iml

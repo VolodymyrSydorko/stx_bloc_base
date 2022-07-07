@@ -1,7 +1,10 @@
 name: stx_bloc_base
-description: A new Flutter package project.
+description: The package provides various generic implementations of blocs.
 version: 0.0.1
-#homepage:
+
+homepage: https://github.com/VolodymyrSydorko/stx_bloc_base
+documentation: https://github.com/VolodymyrSydorko/stx_bloc_base
+repository: https://github.com/VolodymyrSydorko/stx_bloc_base
 
 environment:
   sdk: ">=2.17.1 <3.0.0"
