@@ -7,11 +7,13 @@ import 'network_base_bloc.dart';
 import 'network_base_bloc_event.dart';
 
 class NetworkSearchableState<T> extends NetworkStateBase<T> {
+  final T visibleData;
   final String? query;
 
   const NetworkSearchableState({
     super.status,
     required super.data,
+    required this.visibleData,
     this.query,
     super.errorMessage,
   });
@@ -22,7 +24,7 @@ class NetworkSearchableState<T> extends NetworkStateBase<T> {
 
   @override
   NetworkSearchableState<T> copyWithSuccess(T data) =>
-      copyWith(status: NetworkStatus.success, data: data);
+      copyWith(status: NetworkStatus.success, data: data, visibleData: data);
 
   @override
   NetworkSearchableState<T> copyWithFailure([String? errorMessage]) =>
@@ -32,16 +34,21 @@ class NetworkSearchableState<T> extends NetworkStateBase<T> {
   NetworkSearchableState<T> copyWith({
     NetworkStatus? status,
     T? data,
+    T? visibleData,
     String? query,
     String? errorMessage,
   }) {
     return NetworkSearchableState(
       status: status ?? this.status,
       data: data ?? this.data,
+      visibleData: visibleData ?? this.visibleData,
       query: query ?? this.query,
       errorMessage: errorMessage ?? this.errorMessage,
     );
   }
+
+  @override
+  List<Object?> get props => [...super.props, visibleData, query];
 }
 
 abstract class NetworkSearchableBloc<T, S extends NetworkSearchableState<T>>

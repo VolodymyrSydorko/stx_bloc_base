@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:stx_bloc_base/src/helpers/list_extentions.dart';
+import 'package:stx_bloc_base/src/helpers/list_extensions.dart';
 
 import 'models.dart';
 import 'network_base_bloc.dart';

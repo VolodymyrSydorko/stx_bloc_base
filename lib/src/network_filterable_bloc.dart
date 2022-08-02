@@ -12,6 +12,7 @@ class NetworkFilterableState<T, F> extends NetworkSearchableState<T> {
   const NetworkFilterableState({
     super.status,
     required super.data,
+    required super.visibleData,
     super.query,
     this.filter,
     super.errorMessage,
@@ -23,7 +24,7 @@ class NetworkFilterableState<T, F> extends NetworkSearchableState<T> {
 
   @override
   NetworkFilterableState<T, F> copyWithSuccess(T data) =>
-      copyWith(status: NetworkStatus.success, data: data);
+      copyWith(status: NetworkStatus.success, data: data, visibleData: data);
 
   @override
   NetworkFilterableState<T, F> copyWithFailure([String? errorMessage]) =>
@@ -33,6 +34,7 @@ class NetworkFilterableState<T, F> extends NetworkSearchableState<T> {
   NetworkFilterableState<T, F> copyWith({
     NetworkStatus? status,
     T? data,
+    T? visibleData,
     String? query,
     F? filter,
     String? errorMessage,
@@ -40,6 +42,7 @@ class NetworkFilterableState<T, F> extends NetworkSearchableState<T> {
     return NetworkFilterableState(
       status: status ?? this.status,
       data: data ?? this.data,
+      visibleData: visibleData ?? this.visibleData,
       query: query ?? this.query,
       filter: filter ?? this.filter,
       errorMessage: errorMessage ?? this.errorMessage,
