@@ -153,11 +153,11 @@ abstract class _Account implements Account {
       final int age}) = _$_Account;
 
   @override
-  String get firstName => throw _privateConstructorUsedError;
+  String get firstName;
   @override
-  String get lastName => throw _privateConstructorUsedError;
+  String get lastName;
   @override
-  int get age => throw _privateConstructorUsedError;
+  int get age;
   @override
   @JsonKey(ignore: true)
   _$$_AccountCopyWith<_$_Account> get copyWith =>

@@ -152,11 +152,11 @@ abstract class _Note implements Note {
       final DateTime? createdDate}) = _$_Note;
 
   @override
-  int get noteId => throw _privateConstructorUsedError;
+  int get noteId;
   @override
-  String get message => throw _privateConstructorUsedError;
+  String get message;
   @override
-  DateTime? get createdDate => throw _privateConstructorUsedError;
+  DateTime? get createdDate;
   @override
   @JsonKey(ignore: true)
   _$$_NoteCopyWith<_$_Note> get copyWith => throw _privateConstructorUsedError;
