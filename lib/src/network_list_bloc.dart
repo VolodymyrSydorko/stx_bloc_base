@@ -1,12 +1,13 @@
 import 'dart:async';
 
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:bloc/bloc.dart';
+import 'package:meta/meta.dart';
 
 import 'package:stx_bloc_base/src/helpers/list_extensions.dart';
 
 import 'models.dart';
-import 'network_base_bloc.dart';
-import 'network_base_bloc_event.dart';
+import 'network_bloc_base.dart';
+import 'network_bloc_base_event.dart';
 
 class NetworkListState<T> extends NetworkStateBase<List<T>> {
   const NetworkListState({
@@ -65,6 +66,7 @@ abstract class NetworkListBloc<T, S extends NetworkListState<T>>
   void removeItem(T item) => add(NetworkEventRemoveItem(item));
   void removeItemAsync(T item) => add(NetworkEventRemoveItemAsync(item));
 
+  @protected
   FutureOr<void> onEventAddItem(
       NetworkEventAdd<T> event, Emitter<NetworkListState<T>> emit) {
     final items = [
@@ -76,6 +78,7 @@ abstract class NetworkListBloc<T, S extends NetworkListState<T>>
     emit(onStateChanged(event, state.copyWithSuccess(items)));
   }
 
+  @protected
   FutureOr<void> onEventAddItemAsync(NetworkEventAddItemAsync<T> event,
       Emitter<NetworkListState<T>> emit) async {
     emit(state.copyWithLoading());
@@ -95,6 +98,7 @@ abstract class NetworkListBloc<T, S extends NetworkListState<T>>
     }
   }
 
+  @protected
   FutureOr<void> onEventEditItem(
       NetworkEventEditItem<T> event, Emitter<NetworkListState<T>> emit) {
     final items = state.data.replaceWhere(
@@ -105,6 +109,7 @@ abstract class NetworkListBloc<T, S extends NetworkListState<T>>
     emit(onStateChanged(event, state.copyWithSuccess(items)));
   }
 
+  @protected
   FutureOr<void> onEventEditItemAsync(NetworkEventEditItemAsync<T> event,
       Emitter<NetworkListState<T>> emit) async {
     emit(state.copyWithLoading());
@@ -123,6 +128,7 @@ abstract class NetworkListBloc<T, S extends NetworkListState<T>>
     }
   }
 
+  @protected
   FutureOr<void> onEventRemoveItem(
       NetworkEventRemoveItem event, Emitter<NetworkListState<T>> emit) {
     final items = [...state.data]..removeWhere(
@@ -132,6 +138,7 @@ abstract class NetworkListBloc<T, S extends NetworkListState<T>>
     emit(onStateChanged(event, state.copyWithSuccess(items)));
   }
 
+  @protected
   FutureOr<void> onEventRemoveItemAsync(NetworkEventRemoveItemAsync event,
       Emitter<NetworkListState<T>> emit) async {
     emit(state.copyWithLoading());
@@ -145,9 +152,11 @@ abstract class NetworkListBloc<T, S extends NetworkListState<T>>
 
       emit(onStateChanged(event, state.copyWithSuccess(items)));
 
-      await onDeleteItemAsync(event.item);
+      final isDeleted = await onDeleteItemAsync(event.item);
 
-      //TODO: Handle when item didn't removed
+      if (!isDeleted) {
+        emit(state.copyWith(status: NetworkStatus.failure, data: oldItems));
+      }
     } catch (e, stackTrace) {
       emit(
         state.copyWith(

@@ -28,13 +28,7 @@ class NotesView extends StatelessWidget {
 
     return RefreshIndicator(
       displacement: 100,
-      onRefresh: () {
-        notesBloc.load();
-
-        return notesBloc.stream.firstWhere(
-          (state) => !state.status.isLoading,
-        );
-      },
+      onRefresh: notesBloc.loadAsyncFuture,
       child: Scaffold(
         appBar: AppBar(
           title: const Text('My notes'),

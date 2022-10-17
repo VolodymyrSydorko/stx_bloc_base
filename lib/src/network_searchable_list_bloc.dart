@@ -1,9 +1,10 @@
 import 'dart:async';
 
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:bloc/bloc.dart';
+import 'package:meta/meta.dart';
 
 import 'models.dart';
-import 'network_base_bloc_event.dart';
+import 'network_bloc_base_event.dart';
 import 'network_list_bloc.dart';
 
 class NetworkSearchableListState<T> extends NetworkListState<T> {
@@ -67,11 +68,13 @@ abstract class NetworkSearchableListBloc<T,
   void search(String query) => add(NetworkEventSearch(query));
   void searchAsync(String query) => add(NetworkEventSearchAsync(query));
 
+  @protected
   FutureOr<void> onEventSearch(
       NetworkEventSearch event, Emitter<NetworkSearchableListState<T>> emit) {
     emit(onStateChanged(event, state.copyWith(query: event.query)));
   }
 
+  @protected
   FutureOr<void> onEventSearchAsync(NetworkEventSearchAsync event,
       Emitter<NetworkSearchableListState<T>> emit) async {
     emit(

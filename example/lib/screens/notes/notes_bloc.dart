@@ -9,14 +9,14 @@ class NotesBloc extends NetworkFilterableListBloc<Note, bool,
   NotesBloc({
     required this.repository,
   }) : super(
-          NetworkFilterableListState(),
+          const NetworkFilterableListState(),
           errorHandler: ErrorHandler.parse,
         );
 
   final NotesRepository repository;
 
   @override
-  Future<List<Note>> onLoadDataAsync() {
+  Future<List<Note>> onLoadAsync() {
     return repository.getNotes();
   }
 

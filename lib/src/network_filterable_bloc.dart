@@ -1,9 +1,10 @@
 import 'dart:async';
 
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:bloc/bloc.dart';
+import 'package:meta/meta.dart';
 
 import 'models.dart';
-import 'network_base_bloc_event.dart';
+import 'network_bloc_base_event.dart';
 import 'network_searchable_bloc.dart';
 
 class NetworkFilterableState<T, F> extends NetworkSearchableState<T> {
@@ -67,11 +68,13 @@ abstract class NetworkFilterableBloc<T, F,
   void filter(F filter) => add(NetworkEventFilter<F>(filter));
   void filterAsync(F filter) => add(NetworkEventFilterAsync<F>(filter));
 
+  @protected
   FutureOr<void> onEventFilter(
       NetworkEventFilter event, Emitter<NetworkFilterableState<T, F>> emit) {
     emit(onStateChanged(event, state.copyWith(filter: event.filter)));
   }
 
+  @protected
   FutureOr<void> onEventFilterAsync(NetworkEventFilterAsync<F> event,
       Emitter<NetworkFilterableState<T, F>> emit) async {
     emit(

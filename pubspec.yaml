@@ -1,29 +1,19 @@
 name: stx_bloc_base
 description: The package provides various generic implementations of blocs.
-version: 0.0.2
+version: 0.1.0
 
 homepage: https://github.com/VolodymyrSydorko/stx_bloc_base
 documentation: https://github.com/VolodymyrSydorko/stx_bloc_base
 repository: https://github.com/VolodymyrSydorko/stx_bloc_base
 
 environment:
-  sdk: ">=2.17.0 <3.0.0"
-  flutter: ">=1.17.0"
+  sdk: ">=2.18.0 <3.0.0"
 
 dependencies:
-  flutter:
-    sdk: flutter
-
-  flutter_bloc: ^8.0.1
-  equatable: ^2.0.3
-  freezed_annotation: ^2.1.0
-  dio: ^4.0.6
+  bloc: ^8.1.0
+  equatable: ^2.0.5
+  meta: ^1.8.0
 
 dev_dependencies:
-  build_runner: ^2.2.0
-  freezed: ^2.1.0+1
-  flutter_test:
-    sdk: flutter
-  flutter_lints: ^2.0.1
-  
-flutter:
+  test: ^1.21.6  
+  lints: ^2.0.0

@@ -1,10 +1,11 @@
 import 'dart:async';
 
+import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:meta/meta.dart';
 
 import 'models.dart';
-import 'network_base_bloc_event.dart';
+import 'network_bloc_base_event.dart';
 
 class NetworkStateBase<T> extends Equatable {
   final NetworkStatus status;
@@ -42,7 +43,8 @@ class NetworkStateBase<T> extends Equatable {
     );
   }
 
-  String get errorMsg => errorMessage ?? 'Something went wrong';
+  String get errorMsg =>
+      status.isFailure ? errorMessage ?? 'Something went wrong' : '';
 
   @override
   List<Object?> get props => [status, data, errorMessage];
@@ -50,28 +52,28 @@ class NetworkStateBase<T> extends Equatable {
 
 abstract class NetworkBlocBase<T, S extends NetworkStateBase<T>>
     extends Bloc<NetworkEventBase, S> {
+  final String? Function(Object, StackTrace)? errorHandler;
+
   NetworkBlocBase(
     super.initialState, {
     this.errorHandler,
   }) {
-    on<NetworkEventLoad>(onEventLoad);
+    on<NetworkEventLoadAsync>(onEventLoadAsync);
     on<NetworkEventUpdate>(onEventUpdate);
     on<NetworkEventUpdateAsync>(onEventUpdateAsync);
   }
 
-  final String? Function(Object, StackTrace)? errorHandler;
-
-  void load() => add(NetworkEventLoad());
-
+  void load() => add(NetworkEventLoadAsync());
   void update(T updatedData) => add(NetworkEventUpdate(updatedData));
   void updateAsync(T updatedData) => add(NetworkEventUpdateAsync(updatedData));
 
-  FutureOr<void> onEventLoad(
-      NetworkEventLoad event, Emitter<NetworkStateBase<T>> emit) async {
+  @protected
+  FutureOr<void> onEventLoadAsync(
+      NetworkEventLoadAsync event, Emitter<NetworkStateBase<T>> emit) async {
     emit(state.copyWithLoading());
 
     try {
-      var data = await onLoadDataAsync();
+      var data = await onLoadAsync();
 
       emit(onStateChanged(event, state.copyWithSuccess(data)));
     } catch (e, stackTrace) {
@@ -81,29 +83,29 @@ abstract class NetworkBlocBase<T, S extends NetworkStateBase<T>>
     }
   }
 
+  @protected
   FutureOr<void> onEventUpdate(
       NetworkEventUpdate event, Emitter<NetworkStateBase<T>> emit) {
     emit(onStateChanged(event, state.copyWithSuccess(event.updatedData)));
   }
 
+  @protected
   FutureOr<void> onEventUpdateAsync(
       NetworkEventUpdateAsync event, Emitter<NetworkStateBase<T>> emit) async {
     emit(state.copyWithLoading());
 
     try {
-      var data = await onUpdateDataAsync(event.updatedData);
+      var data = await onUpdateAsync(event.updatedData);
 
       emit(onStateChanged(event, state.copyWithSuccess(data)));
     } catch (e, stackTrace) {
-      emit(
-        state.copyWithFailure(errorHandler?.call(e, stackTrace)),
-      );
+      emit(state.copyWithFailure(errorHandler?.call(e, stackTrace)));
     }
   }
 
-  Future<T> onLoadDataAsync();
+  Future<T> onLoadAsync();
 
-  Future<T> onUpdateDataAsync(T updatedData) => Future.value(updatedData);
+  Future<T> onUpdateAsync(T updatedData) => Future.value(updatedData);
 
   NetworkStateBase<T> onStateChanged(
     NetworkEventBase event,

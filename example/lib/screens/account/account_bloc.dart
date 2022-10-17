@@ -49,7 +49,7 @@ class AccountBloc extends NetworkBlocBase<Account, TestState> {
   AccountBloc({
     required this.repository,
   }) : super(
-          TestState(),
+          const TestState(),
           errorHandler: ErrorHandler.parse,
         ) {
     on<NetworkEventCounterAdded>(_counterAdded);
@@ -65,7 +65,7 @@ class AccountBloc extends NetworkBlocBase<Account, TestState> {
   }
 
   @override
-  Future<Account> onLoadDataAsync() {
+  Future<Account> onLoadAsync() {
     return repository.getAccountInfo();
   }
 }

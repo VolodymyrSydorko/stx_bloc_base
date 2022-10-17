@@ -2,7 +2,7 @@ import 'models.dart';
 
 abstract class NetworkEventBase {}
 
-class NetworkEventLoad implements NetworkEventBase {}
+class NetworkEventLoadAsync implements NetworkEventBase {}
 
 class NetworkEventUpdate<T> implements NetworkEventBase {
   final T updatedData;
