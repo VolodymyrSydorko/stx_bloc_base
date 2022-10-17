@@ -101,4 +101,10 @@ abstract class NetworkSearchableListBloc<T,
     NetworkSearchableListState<T> state,
   ) =>
       state;
+
+  //additional methods
+  Future<S> searchAsyncFuture(String query) async {
+    searchAsync(query);
+    return getAsync();
+  }
 }

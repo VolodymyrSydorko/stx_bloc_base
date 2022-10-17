@@ -112,4 +112,19 @@ abstract class NetworkBlocBase<T, S extends NetworkStateBase<T>>
     covariant NetworkStateBase<T> state,
   ) =>
       state;
+
+  //additional methods
+  Future<S> getAsync() {
+    return stream.firstWhere((state) => !state.status.isLoading);
+  }
+
+  Future<S> loadAsyncFuture() async {
+    load();
+    return getAsync();
+  }
+
+  Future<S> updateAsyncFuture(T updatedData) async {
+    updateAsync(updatedData);
+    return getAsync();
+  }
 }

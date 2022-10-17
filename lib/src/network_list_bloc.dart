@@ -188,4 +188,20 @@ abstract class NetworkListBloc<T, S extends NetworkListState<T>>
     NetworkListState<T> state,
   ) =>
       state;
+
+  //additional methods
+  Future<S> addItemAsyncFuture(T newItem) async {
+    addItemAsync(newItem);
+    return getAsync();
+  }
+
+  Future<S> editItemAsyncFuture(T updatedItem) async {
+    editItemAsync(updatedItem);
+    return getAsync();
+  }
+
+  Future<S> removeItemAsyncFuture(T item) async {
+    removeItemAsync(item);
+    return getAsync();
+  }
 }

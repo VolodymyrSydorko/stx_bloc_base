@@ -1,3 +1,7 @@
+## 0.1.1
+
+- Use methods instead of extensions
+
 ## 0.1.0
 
 - Added extensions (loadAsyncFuture, etc.)

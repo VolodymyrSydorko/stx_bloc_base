@@ -1,6 +1,5 @@
 library stx_bloc_base;
 
-export 'src/extensions.dart';
 export 'src/models.dart';
 export 'src/network_bloc_base_event.dart';
 export 'src/network_bloc_base.dart';
