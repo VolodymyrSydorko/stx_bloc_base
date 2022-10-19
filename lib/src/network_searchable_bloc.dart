@@ -100,7 +100,7 @@ abstract class NetworkSearchableBloc<T, S extends NetworkSearchableState<T>>
       state;
 
   //additional methods
-  Future<S> searchAsyncFuture(String query) async {
+  Future<S> searchAsyncFuture(String query) {
     searchAsync(query);
     return getAsync();
   }

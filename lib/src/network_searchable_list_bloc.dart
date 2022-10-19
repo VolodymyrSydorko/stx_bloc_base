@@ -103,7 +103,7 @@ abstract class NetworkSearchableListBloc<T,
       state;
 
   //additional methods
-  Future<S> searchAsyncFuture(String query) async {
+  Future<S> searchAsyncFuture(String query) {
     searchAsync(query);
     return getAsync();
   }

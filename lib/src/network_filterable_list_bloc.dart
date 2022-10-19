@@ -106,7 +106,7 @@ abstract class NetworkFilterableListBloc<T, F,
       state;
 
   //additional methods
-  Future<S> filterAsyncFuture(F filter) async {
+  Future<S> filterAsyncFuture(F filter) {
     filterAsync(filter);
     return getAsync();
   }

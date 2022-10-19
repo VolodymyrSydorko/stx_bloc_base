@@ -1,3 +1,7 @@
+## 0.1.2
+
+- Added initLoadAsyncFuture
+
 ## 0.1.1
 
 - Use methods instead of extensions
