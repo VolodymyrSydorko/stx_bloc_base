@@ -115,16 +115,14 @@ abstract class NetworkBlocBase<T, S extends NetworkStateBase<T>>
 
   //additional methods
   Future<S> getAsync() {
-    return state.status.isLoading
-        ? stream.firstWhere((state) => !state.status.isLoading)
-        : Future.value(state);
+    return stream.firstWhere((state) => !state.status.isLoading);
   }
 
   Future<S> initLoadAsyncFuture() {
     if (state.status.isInitial) {
       return loadAsyncFuture();
     } else {
-      return getAsync();
+      return state.status.isLoading ? getAsync() : Future.value(state);
     }
   }
 
