@@ -1,4 +1,4 @@
-import 'models.dart';
+import '../models/models.dart';
 
 abstract class NetworkEventBase {}
 
@@ -16,8 +16,8 @@ class NetworkEventUpdateAsync<T> implements NetworkEventBase {
   const NetworkEventUpdateAsync(this.updatedData);
 }
 
-class NetworkEventAdd<T> implements NetworkEventBase {
-  NetworkEventAdd(
+class NetworkEventAddItem<T> implements NetworkEventBase {
+  NetworkEventAddItem(
     this.newItem, {
     this.position = AddPosition.end,
   });
@@ -31,9 +31,9 @@ class NetworkEventAddItemAsync<T> implements NetworkEventBase {
   final AddPosition position;
 
   NetworkEventAddItemAsync(
-    this.newItem, {
+    this.newItem, [
     this.position = AddPosition.end,
-  });
+  ]);
 }
 
 class NetworkEventEditItem<T> implements NetworkEventBase {

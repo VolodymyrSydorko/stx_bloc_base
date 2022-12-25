@@ -1,4 +1,3 @@
-import 'package:example/helpers/error_handler.dart';
 import 'package:example/screens/notes/models/models.dart';
 import 'package:example/screens/notes/notes_repository.dart';
 import 'package:stx_bloc_base/stx_bloc_base.dart';
@@ -9,8 +8,7 @@ class NotesBloc extends NetworkFilterableListBloc<Note, bool,
   NotesBloc({
     required this.repository,
   }) : super(
-          const NetworkFilterableListState(),
-          errorHandler: ErrorHandler.parse,
+          const NetworkFilterableListState(data: [], visibleData: []),
         );
 
   final NotesRepository repository;
@@ -31,8 +29,8 @@ class NotesBloc extends NetworkFilterableListBloc<Note, bool,
   }
 
   @override
-  Future<bool> onDeleteItemAsync(Note item) {
-    return repository.deleteNote(item.noteId);
+  Future<bool> onRemoveItemAsync(Note removedItem) {
+    return repository.deleteNote(removedItem.noteId);
   }
 
   @override
@@ -41,7 +39,7 @@ class NotesBloc extends NetworkFilterableListBloc<Note, bool,
   }
 
   @override
-  NetworkFilterableListState<Note, bool> onStateChanged(event, state) {
+  NetworkFilterableListState<Note, bool> onDataChanged(reason, state) {
     final query = state.query;
     final filter = state.filter;
 

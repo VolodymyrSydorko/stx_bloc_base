@@ -34,7 +34,7 @@ class AccountView extends StatelessWidget {
                 ..showSnackBar(
                   SnackBar(
                     content: Text(
-                      state.errorMsg,
+                      state.errorMessage ?? '',
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -54,7 +54,7 @@ class AccountView extends StatelessWidget {
                   ],
                 );
               case NetworkStatus.failure:
-                return Text(state.errorMsg);
+                return Text(state.errorMessage ?? '');
               default:
                 return const Text('loading');
             }

@@ -1,12 +1,11 @@
 import 'dart:async';
 
-import 'package:example/helpers/error_handler.dart';
 import 'package:example/screens/account/account_repository.dart';
 import 'package:example/screens/account/models/models.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stx_bloc_base/stx_bloc_base.dart';
 
-class TestState extends NetworkStateBase<Account> {
+class TestState extends NetworkState<Account> {
   final int counter;
 
   const TestState({
@@ -45,12 +44,11 @@ class TestState extends NetworkStateBase<Account> {
 
 class NetworkEventCounterAdded extends NetworkEventBase {}
 
-class AccountBloc extends NetworkBlocBase<Account, TestState> {
+class AccountBloc extends NetworkBloc<Account, TestState> {
   AccountBloc({
     required this.repository,
   }) : super(
           const TestState(),
-          errorHandler: ErrorHandler.parse,
         ) {
     on<NetworkEventCounterAdded>(_counterAdded);
   }

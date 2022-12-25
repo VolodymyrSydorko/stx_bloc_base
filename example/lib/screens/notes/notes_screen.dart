@@ -71,7 +71,7 @@ class NotesView extends StatelessWidget {
                       ..showSnackBar(
                         SnackBar(
                           content: Text(
-                            state.errorMsg,
+                            state.errorMessage ?? '',
                             textAlign: TextAlign.center,
                           ),
                         ),
