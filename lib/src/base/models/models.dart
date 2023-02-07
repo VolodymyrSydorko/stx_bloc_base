@@ -20,6 +20,7 @@ enum AddPosition {
 
 enum DataChangeReason {
   loaded,
+  extraLoaded,
   updated,
   itemAdded,
   itemEdited,
@@ -28,6 +29,7 @@ enum DataChangeReason {
   filtered;
 
   bool get isLoaded => this == loaded;
+  bool get isExtraLoaded => this == extraLoaded;
   bool get isUpdated => this == updated;
   bool get isItemAdded => this == itemAdded;
   bool get isItemEdited => this == itemEdited;

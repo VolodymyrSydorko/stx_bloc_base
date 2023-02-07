@@ -4,6 +4,10 @@ abstract class NetworkEventBase {}
 
 class NetworkEventLoadAsync implements NetworkEventBase {}
 
+class NetworkEventLoadWithExtraAsync implements NetworkEventBase {}
+
+class NetworkEventLoadExtraAsync implements NetworkEventBase {}
+
 class NetworkEventUpdate<T> implements NetworkEventBase {
   final T updatedData;
 

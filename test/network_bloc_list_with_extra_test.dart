@@ -23,14 +23,32 @@ class TestNetworkListBloc
     extends NetworkListBloc<Person, NetworkExtraListState<Person, int>>
     with
         NetworkExtraBaseMixin<List<Person>, int,
+            NetworkExtraListState<Person, int>>,
+        NetworkExtraBlocMixin<List<Person>, int,
             NetworkExtraListState<Person, int>> {
-  TestNetworkListBloc() : super(NetworkExtraState(data: [], extraData: 0));
+  TestNetworkListBloc() : super(NetworkExtraState(data: [], extraData: 0)) {
+    super.network();
+  }
+
+  @override
+  Future<List<Person>> onLoadAsync() async {
+    await Future.delayed(Duration(milliseconds: 100));
+
+    return persons1;
+  }
 
   @override
   Future<Tuple2<List<Person>, int>> onLoadWithExtraAsync() async {
     await Future.delayed(Duration(milliseconds: 100));
 
     return Tuple2(persons1, 1);
+  }
+
+  @override
+  Future<int> onLoadExtraAsync() async {
+    await Future.delayed(Duration(milliseconds: 100));
+
+    return 1;
   }
 
   @override
@@ -54,6 +72,30 @@ void main() {
       "Load state",
       build: () => TestNetworkListBloc(),
       act: (bloc) => bloc.load(),
+      wait: Duration(milliseconds: 100),
+      verify: (bloc) {
+        expect(bloc.state.status.isSuccess, isTrue);
+        expect(bloc.state.extraData, 0);
+        expect(bloc.state.data, persons1);
+      },
+    );
+
+    blocTest(
+      "Load extra state",
+      build: () => TestNetworkListBloc(),
+      act: (bloc) => bloc.loadExtra(),
+      wait: Duration(milliseconds: 100),
+      verify: (bloc) {
+        expect(bloc.state.status.isSuccess, isTrue);
+        expect(bloc.state.extraData, 1);
+        expect(bloc.state.data, []);
+      },
+    );
+
+    blocTest(
+      "Load with extra state",
+      build: () => TestNetworkListBloc(),
+      act: (bloc) => bloc.loadWithExtra(),
       wait: Duration(milliseconds: 100),
       verify: (bloc) {
         expect(bloc.state.status.isSuccess, isTrue);
