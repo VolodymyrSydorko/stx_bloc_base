@@ -1,3 +1,16 @@
+## 0.3.0
+
+- Added NetworkExtraBaseMixin and NetworkExtraBlocMixin
+- Added tests
+
+## 0.2.0
+
+- Reworked package using mixins
+- Added cubits implementation
+- Added errorHandler as static member in NetworkBaseMixin
+- Added NetworkExtraBaseMixin
+- Added tests
+
 ## 0.1.3
 
 - Minor fixes
