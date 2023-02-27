@@ -12,9 +12,15 @@ class NetworkSearchableState<T> extends NetworkState<T>
     this.query,
   });
 
+  NetworkSearchableState<T> copyWithLoading() =>
+      copyWith(status: NetworkStatus.loading);
+
   @override
   NetworkSearchableState<T> copyWithSuccess(T data) =>
       copyWith(status: NetworkStatus.success, data: data, visibleData: data);
+
+  NetworkSearchableState<T> copyWithFailure() =>
+      copyWith(status: NetworkStatus.failure);
 
   @override
   NetworkSearchableState<T> copyWith({

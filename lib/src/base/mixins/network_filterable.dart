@@ -21,13 +21,14 @@ mixin NetworkFilterableBlocMixin<T, F,
   void filterAsync(F filter) => add(NetworkEventFilterAsync(filter));
 
   @protected
-  FutureOr<void> onEventFilter(NetworkEventFilter event, Emitter<S> emit) {
+  FutureOr<void> onEventFilter(NetworkEventFilter event,
+      Emitter<NetworkFilterableStateBase<T, F>> emit) {
     super.filter(event.filter);
   }
 
   @protected
-  FutureOr<void> onEventFilterAsync(
-      NetworkEventFilterAsync event, Emitter<S> emit) {
+  FutureOr<void> onEventFilterAsync(NetworkEventFilterAsync event,
+      Emitter<NetworkFilterableStateBase<T, F>> emit) {
     return super.filterAsync(event.filter);
   }
 }

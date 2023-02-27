@@ -11,8 +11,16 @@ class NetworkExtraState<T, E> extends NetworkState<T>
   });
 
   @override
+  NetworkExtraState<T, E> copyWithLoading() =>
+      copyWith(status: NetworkStatus.loading);
+
+  @override
   NetworkExtraState<T, E> copyWithSuccess(T data, [E? extraData]) =>
       copyWith(status: NetworkStatus.success, data: data, extraData: extraData);
+
+  @override
+  NetworkExtraState<T, E> copyWithFailure() =>
+      copyWith(status: NetworkStatus.failure);
 
   @override
   NetworkExtraState<T, E> copyWith({
@@ -44,6 +52,10 @@ class NetworkSearchableExtraState<T, E> extends NetworkSearchableState<T>
   });
 
   @override
+  NetworkSearchableExtraState<T, E> copyWithLoading() =>
+      copyWith(status: NetworkStatus.loading);
+
+  @override
   NetworkSearchableExtraState<T, E> copyWithSuccess(T data, [E? extraData]) =>
       copyWith(
         status: NetworkStatus.success,
@@ -51,6 +63,10 @@ class NetworkSearchableExtraState<T, E> extends NetworkSearchableState<T>
         visibleData: data,
         extraData: extraData,
       );
+
+  @override
+  NetworkSearchableExtraState<T, E> copyWithFailure() =>
+      copyWith(status: NetworkStatus.failure);
 
   @override
   NetworkSearchableExtraState<T, E> copyWith({
@@ -84,6 +100,10 @@ class NetworkFilterableExtraState<T, F, E> extends NetworkFilterableState<T, F>
   });
 
   @override
+  NetworkFilterableExtraState<T, F, E> copyWithLoading() =>
+      copyWith(status: NetworkStatus.loading);
+
+  @override
   NetworkFilterableExtraState<T, F, E> copyWithSuccess(T data,
           [E? extraData]) =>
       copyWith(
@@ -92,6 +112,10 @@ class NetworkFilterableExtraState<T, F, E> extends NetworkFilterableState<T, F>
         visibleData: data,
         extraData: extraData,
       );
+
+  @override
+  NetworkFilterableExtraState<T, F, E> copyWithFailure() =>
+      copyWith(status: NetworkStatus.failure);
 
   @override
   NetworkFilterableExtraState<T, F, E> copyWith({

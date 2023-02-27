@@ -12,6 +12,16 @@ class NetworkFilterableState<T, F> extends NetworkSearchableState<T>
     this.filter,
   });
 
+  NetworkFilterableState<T, F> copyWithLoading() =>
+      copyWith(status: NetworkStatus.loading);
+
+  @override
+  NetworkFilterableState<T, F> copyWithSuccess(T data) =>
+      copyWith(status: NetworkStatus.success, data: data, visibleData: data);
+
+  NetworkFilterableState<T, F> copyWithFailure() =>
+      copyWith(status: NetworkStatus.failure);
+
   @override
   NetworkFilterableState<T, F> copyWith({
     NetworkStatus? status,

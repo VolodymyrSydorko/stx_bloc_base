@@ -23,7 +23,7 @@ mixin NetworkBlocMixin<T, S extends NetworkStateBase<T>>
   @protected
   FutureOr<void> onEventLoadAsync(
     NetworkEventLoadAsync event,
-    Emitter<S> emit,
+    Emitter<NetworkStateBase<T>> emit,
   ) {
     return super.load();
   }
@@ -31,14 +31,14 @@ mixin NetworkBlocMixin<T, S extends NetworkStateBase<T>>
   @protected
   FutureOr<void> onEventUpdate(
     NetworkEventUpdate event,
-    Emitter<S> emit,
+    Emitter<NetworkStateBase<T>> emit,
   ) {
     return super.update(event.updatedData);
   }
 
   @protected
   FutureOr<void> onEventUpdateAsync(
-      NetworkEventUpdateAsync event, Emitter<S> emit) async {
+      NetworkEventUpdateAsync event, Emitter<NetworkStateBase<T>> emit) async {
     return super.updateAsync(event.updatedData);
   }
 }
