@@ -1,3 +1,8 @@
+## 0.4.0
+
+- Removed errorMessage
+- Renamed onDataChanged to onStateChanged
+
 ## 0.3.0
 
 - Added NetworkExtraBaseMixin and NetworkExtraBlocMixin
