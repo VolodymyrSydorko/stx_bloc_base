@@ -21,10 +21,10 @@ mixin NetworkBlocMixin<T, S extends NetworkStateBase<T>>
   void updateAsync(T updatedData) => add(NetworkEventUpdateAsync(updatedData));
 
   @protected
-  Future<void> onEventLoadAsync(
+  FutureOr<void> onEventLoadAsync(
     NetworkEventLoadAsync event,
     Emitter<S> emit,
-  ) async {
+  ) {
     return super.load();
   }
 
