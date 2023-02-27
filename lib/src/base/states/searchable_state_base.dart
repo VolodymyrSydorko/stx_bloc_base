@@ -10,6 +10,5 @@ abstract class NetworkSearchableStateBase<T> extends NetworkStateBase<T> {
     T? data,
     T? visibleData,
     String? query,
-    String? errorMessage,
   });
 }

@@ -88,7 +88,7 @@ mixin NetworkListBaseMixin<T, S extends NetworkListStateBase<T>>
     ];
 
     emit(
-      onDataChanged(
+      onStateChanged(
         DataChangeReason.itemAdded,
         state.copyWithSuccess(items) as S,
       ),
@@ -109,14 +109,14 @@ mixin NetworkListBaseMixin<T, S extends NetworkListStateBase<T>>
       ];
 
       emit(
-        onDataChanged(
+        onStateChanged(
           DataChangeReason.itemAdded,
           state.copyWithSuccess(items) as S,
         ),
       );
     } catch (e, stackTrace) {
-      emit(state.copyWithFailure(
-          NetworkBaseMixin.errorHandler.onError(e, stackTrace)) as S);
+      emit(state.copyWithFailure() as S);
+      addError(e, stackTrace);
     }
   }
 
@@ -127,7 +127,7 @@ mixin NetworkListBaseMixin<T, S extends NetworkListStateBase<T>>
     );
 
     emit(
-      onDataChanged(
+      onStateChanged(
         DataChangeReason.itemEdited,
         state.copyWithSuccess(items) as S,
       ),
@@ -146,14 +146,14 @@ mixin NetworkListBaseMixin<T, S extends NetworkListStateBase<T>>
       );
 
       emit(
-        onDataChanged(
+        onStateChanged(
           DataChangeReason.itemEdited,
           state.copyWithSuccess(items) as S,
         ),
       );
     } catch (e, stackTrace) {
-      emit(state.copyWithFailure(
-          NetworkBaseMixin.errorHandler.onError(e, stackTrace)) as S);
+      emit(state.copyWithFailure() as S);
+      addError(e, stackTrace);
     }
   }
 
@@ -163,7 +163,7 @@ mixin NetworkListBaseMixin<T, S extends NetworkListStateBase<T>>
       );
 
     emit(
-      onDataChanged(
+      onStateChanged(
         DataChangeReason.itemRemoved,
         state.copyWithSuccess(items) as S,
       ),
@@ -180,7 +180,7 @@ mixin NetworkListBaseMixin<T, S extends NetworkListStateBase<T>>
           (item) => equals(item, removedItem),
         );
 
-      emit(onDataChanged(
+      emit(onStateChanged(
           DataChangeReason.itemRemoved, state.copyWithSuccess(items) as S));
 
       final isDeleted = await onRemoveItemAsync(removedItem);
@@ -195,9 +195,9 @@ mixin NetworkListBaseMixin<T, S extends NetworkListStateBase<T>>
         state.copyWith(
           status: NetworkStatus.failure,
           data: oldItems,
-          errorMessage: NetworkBaseMixin.errorHandler.onError(e, stackTrace),
         ) as S,
       );
+      addError(e, stackTrace);
     }
   }
 

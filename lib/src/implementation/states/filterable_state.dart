@@ -10,7 +10,6 @@ class NetworkFilterableState<T, F> extends NetworkSearchableState<T>
     required super.visibleData,
     super.query,
     this.filter,
-    super.errorMessage,
   });
 
   @override
@@ -20,7 +19,6 @@ class NetworkFilterableState<T, F> extends NetworkSearchableState<T>
     T? visibleData,
     String? query,
     F? filter,
-    String? errorMessage,
   }) {
     return NetworkFilterableState(
       status: status ?? this.status,
@@ -28,7 +26,6 @@ class NetworkFilterableState<T, F> extends NetworkSearchableState<T>
       visibleData: visibleData ?? this.visibleData,
       query: query ?? this.query,
       filter: filter ?? this.filter,
-      errorMessage: errorMessage ?? this.errorMessage,
     );
   }
 

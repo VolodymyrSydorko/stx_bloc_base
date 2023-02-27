@@ -10,7 +10,6 @@ class NetworkSearchableState<T> extends NetworkState<T>
     required super.data,
     required this.visibleData,
     this.query,
-    super.errorMessage,
   });
 
   @override
@@ -23,14 +22,12 @@ class NetworkSearchableState<T> extends NetworkState<T>
     T? data,
     T? visibleData,
     String? query,
-    String? errorMessage,
   }) {
     return NetworkSearchableState(
       status: status ?? this.status,
       data: data ?? this.data,
       visibleData: visibleData ?? this.visibleData,
       query: query ?? this.query,
-      errorMessage: errorMessage ?? this.errorMessage,
     );
   }
 

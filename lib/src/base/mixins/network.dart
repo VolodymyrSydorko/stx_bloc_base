@@ -44,8 +44,6 @@ mixin NetworkBlocMixin<T, S extends NetworkStateBase<T>>
 }
 
 mixin NetworkBaseMixin<T, S extends NetworkStateBase<T>> on BlocBase<S> {
-  static NetworkBlocErrorHandler errorHandler = _DefaultBlocErrorHandler();
-
   FutureOr<void> load() async {
     emit(state.copyWithLoading() as S);
 
@@ -53,19 +51,20 @@ mixin NetworkBaseMixin<T, S extends NetworkStateBase<T>> on BlocBase<S> {
       var data = await onLoadAsync();
 
       emit(
-        onDataChanged(
+        onStateChanged(
           DataChangeReason.loaded,
           state.copyWithSuccess(data) as S,
         ),
       );
     } catch (e, stackTrace) {
-      emit(state.copyWithFailure(errorHandler.onError(e, stackTrace)) as S);
+      emit(state.copyWithFailure() as S);
+      addError(e, stackTrace);
     }
   }
 
   FutureOr<void> update(T updatedData) {
     emit(
-      onDataChanged(
+      onStateChanged(
         DataChangeReason.updated,
         state.copyWithSuccess(updatedData) as S,
       ),
@@ -79,13 +78,14 @@ mixin NetworkBaseMixin<T, S extends NetworkStateBase<T>> on BlocBase<S> {
       var data = await onUpdateAsync(updatedData);
 
       emit(
-        onDataChanged(
+        onStateChanged(
           DataChangeReason.updated,
           state.copyWithSuccess(data) as S,
         ),
       );
     } catch (e, stackTrace) {
-      emit(state.copyWithFailure(errorHandler.onError(e, stackTrace)) as S);
+      emit(state.copyWithFailure() as S);
+      addError(e, stackTrace);
     }
   }
 
@@ -93,7 +93,7 @@ mixin NetworkBaseMixin<T, S extends NetworkStateBase<T>> on BlocBase<S> {
 
   Future<T> onUpdateAsync(T updatedData) => Future.value(updatedData);
 
-  S onDataChanged(DataChangeReason reason, S state) =>
+  S onStateChanged(DataChangeReason reason, S state) =>
       state.copyWith(status: NetworkStatus.success) as S;
 
   //additional methods
@@ -117,12 +117,5 @@ mixin NetworkBaseMixin<T, S extends NetworkStateBase<T>> on BlocBase<S> {
   Future<S> updateAsyncFuture(T updatedData) {
     updateAsync(updatedData);
     return getAsync();
-  }
-}
-
-class _DefaultBlocErrorHandler extends NetworkBlocErrorHandler {
-  @override
-  String? onError(Object error, StackTrace stackTrace) {
-    return null;
   }
 }

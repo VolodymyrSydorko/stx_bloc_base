@@ -12,7 +12,6 @@ class TestState extends NetworkState<Account> {
     super.status,
     super.data = const Account(),
     this.counter = 0,
-    super.errorMessage,
   });
 
   @override
@@ -28,13 +27,11 @@ class TestState extends NetworkState<Account> {
     NetworkStatus? status,
     Account? data,
     int? counter,
-    String? errorMessage,
   }) {
     return TestState(
       status: status ?? this.status,
       data: data ?? this.data,
       counter: counter ?? this.counter,
-      errorMessage: errorMessage ?? this.errorMessage,
     );
   }
 

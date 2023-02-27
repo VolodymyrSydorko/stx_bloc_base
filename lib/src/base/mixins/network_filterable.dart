@@ -37,7 +37,7 @@ mixin NetworkFilterableBaseMixin<T, F,
     S extends NetworkFilterableStateBase<T, F>> on NetworkBaseMixin<T, S> {
   void filter(F filter) {
     emit(
-      onDataChanged(
+      onStateChanged(
           DataChangeReason.filtered, state.copyWith(filter: filter) as S),
     );
   }
@@ -54,14 +54,14 @@ mixin NetworkFilterableBaseMixin<T, F,
       final filteredData = await onFilterAsync(filter);
 
       emit(
-        onDataChanged(
+        onStateChanged(
           DataChangeReason.filtered,
           state.copyWithSuccess(filteredData) as S,
         ),
       );
     } catch (e, stackTrace) {
-      emit(state.copyWithFailure(
-          NetworkBaseMixin.errorHandler.onError(e, stackTrace)) as S);
+      emit(state.copyWithFailure() as S);
+      addError(e, stackTrace);
     }
   }
 

@@ -8,7 +8,6 @@ class NetworkExtraState<T, E> extends NetworkState<T>
     super.status,
     required super.data,
     required this.extraData,
-    super.errorMessage,
   });
 
   @override
@@ -20,13 +19,11 @@ class NetworkExtraState<T, E> extends NetworkState<T>
     NetworkStatus? status,
     T? data,
     E? extraData,
-    String? errorMessage,
   }) {
     return NetworkExtraState(
       status: status ?? this.status,
       data: data ?? this.data,
       extraData: extraData ?? this.extraData,
-      errorMessage: errorMessage ?? this.errorMessage,
     );
   }
 
@@ -44,7 +41,6 @@ class NetworkSearchableExtraState<T, E> extends NetworkSearchableState<T>
     required super.visibleData,
     required this.extraData,
     super.query,
-    super.errorMessage,
   });
 
   @override
@@ -63,7 +59,6 @@ class NetworkSearchableExtraState<T, E> extends NetworkSearchableState<T>
     T? visibleData,
     E? extraData,
     String? query,
-    String? errorMessage,
   }) {
     return NetworkSearchableExtraState(
       status: status ?? this.status,
@@ -71,7 +66,6 @@ class NetworkSearchableExtraState<T, E> extends NetworkSearchableState<T>
       visibleData: visibleData ?? this.visibleData,
       extraData: extraData ?? this.extraData,
       query: query ?? this.query,
-      errorMessage: errorMessage ?? this.errorMessage,
     );
   }
 }
@@ -87,7 +81,6 @@ class NetworkFilterableExtraState<T, F, E> extends NetworkFilterableState<T, F>
     required this.extraData,
     super.query,
     super.filter,
-    super.errorMessage,
   });
 
   @override
@@ -108,7 +101,6 @@ class NetworkFilterableExtraState<T, F, E> extends NetworkFilterableState<T, F>
     E? extraData,
     String? query,
     F? filter,
-    String? errorMessage,
   }) {
     return NetworkFilterableExtraState(
       status: status ?? this.status,
@@ -117,7 +109,6 @@ class NetworkFilterableExtraState<T, F, E> extends NetworkFilterableState<T, F>
       extraData: extraData ?? this.extraData,
       query: query ?? this.query,
       filter: filter ?? this.filter,
-      errorMessage: errorMessage ?? this.errorMessage,
     );
   }
 }

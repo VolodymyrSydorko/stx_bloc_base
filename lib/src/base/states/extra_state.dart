@@ -11,6 +11,5 @@ abstract class NetworkExtraStateBase<T, E> extends NetworkStateBase<T> {
     NetworkStatus? status,
     T? data,
     E? extraData,
-    String? errorMessage,
   });
 }

@@ -10,6 +10,5 @@ abstract class NetworkFilterableStateBase<T, F> extends NetworkStateBase<T> {
     T? data,
     T? visibleData,
     F? filter,
-    String? errorMessage,
   });
 }

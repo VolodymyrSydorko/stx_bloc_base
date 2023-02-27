@@ -34,7 +34,7 @@ mixin NetworkSearchableBaseMixin<T, S extends NetworkSearchableStateBase<T>>
     on NetworkBaseMixin<T, S> {
   void search(String query) {
     emit(
-      onDataChanged(
+      onStateChanged(
         DataChangeReason.searched,
         state.copyWith(query: query) as S,
       ),
@@ -53,14 +53,14 @@ mixin NetworkSearchableBaseMixin<T, S extends NetworkSearchableStateBase<T>>
       final searchedData = await onSearchAsync(query);
 
       emit(
-        onDataChanged(
+        onStateChanged(
           DataChangeReason.searched,
           state.copyWithSuccess(searchedData) as S,
         ),
       );
     } catch (e, stackTrace) {
-      emit(state.copyWithFailure(
-          NetworkBaseMixin.errorHandler.onError(e, stackTrace)) as S);
+      emit(state.copyWithFailure() as S);
+      addError(e, stackTrace);
     }
   }
 
