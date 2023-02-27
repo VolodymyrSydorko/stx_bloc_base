@@ -18,14 +18,14 @@ mixin NetworkExtraBlocMixin<T, E, S extends NetworkExtraStateBase<T, E>>
   void loadWithExtra() => add(NetworkEventLoadWithExtraAsync());
 
   @protected
-  FutureOr<void> onEventLoadExtraAsync(NetworkEventLoadExtraAsync event,
-      Emitter<NetworkExtraStateBase<T, E>> emit) {
+  FutureOr<void> onEventLoadExtraAsync(
+      NetworkEventLoadExtraAsync event, Emitter<S> emit) {
     return super.loadExtra();
   }
 
   @protected
-  FutureOr<void> onEventLoadWithExtraAsync(NetworkEventLoadWithExtraAsync event,
-      Emitter<NetworkExtraStateBase<T, E>> emit) {
+  FutureOr<void> onEventLoadWithExtraAsync(
+      NetworkEventLoadWithExtraAsync event, Emitter<S> emit) {
     return super.loadWithExtra();
   }
 }

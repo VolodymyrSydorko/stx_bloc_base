@@ -18,14 +18,13 @@ mixin NetworkSearchableBlocMixin<T, S extends NetworkSearchableStateBase<T>>
   void searchAsync(String query) => add(NetworkEventSearchAsync(query));
 
   @protected
-  FutureOr<void> onEventSearch(
-      NetworkEventSearch event, Emitter<NetworkSearchableStateBase<T>> emit) {
+  FutureOr<void> onEventSearch(NetworkEventSearch event, Emitter<S> emit) {
     super.search(event.query);
   }
 
   @protected
-  FutureOr<void> onEventSearchAsync(NetworkEventSearchAsync event,
-      Emitter<NetworkSearchableStateBase<T>> emit) {
+  FutureOr<void> onEventSearchAsync(
+      NetworkEventSearchAsync event, Emitter<S> emit) {
     return super.searchAsync(event.query);
   }
 }

@@ -1,3 +1,7 @@
+## 0.4.1
+
+- Minor fixes
+
 ## 0.4.0
 
 - Removed errorMessage
