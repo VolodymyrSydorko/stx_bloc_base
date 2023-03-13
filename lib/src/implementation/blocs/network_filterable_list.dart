@@ -7,5 +7,7 @@ abstract class NetworkFilterableListBloc<T, F,
     with
         NetworkFilterableBaseMixin<List<T>, F, S>,
         NetworkFilterableBlocMixin<List<T>, F, S> {
-  NetworkFilterableListBloc(super.initialState);
+  NetworkFilterableListBloc(super.initialState) {
+    super.network();
+  }
 }

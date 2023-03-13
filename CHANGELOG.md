@@ -1,3 +1,7 @@
+## 0.4.4
+
+- Bug fixes
+
 ## 0.4.3
 
 - Revert changes from 0.4.1

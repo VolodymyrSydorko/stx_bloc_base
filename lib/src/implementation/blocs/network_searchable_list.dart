@@ -6,5 +6,7 @@ abstract class NetworkSearchableListBloc<T,
     with
         NetworkSearchableBaseMixin<List<T>, S>,
         NetworkSearchableBlocMixin<List<T>, S> {
-  NetworkSearchableListBloc(super.initialState);
+  NetworkSearchableListBloc(super.initialState) {
+    super.network();
+  }
 }
