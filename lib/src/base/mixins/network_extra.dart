@@ -84,6 +84,12 @@ mixin NetworkExtraBaseMixin<T, E, S extends NetworkExtraStateBase<T, E>>
     throw UnimplementedError();
   }
 
+  Future<S> loadWithExtraAsyncFuture() {
+    loadWithExtra();
+
+    return getAsync();
+  }
+
   Future<S> loadExtraAsyncFuture() {
     loadExtra();
     return getAsync();

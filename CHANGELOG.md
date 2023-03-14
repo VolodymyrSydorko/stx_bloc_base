@@ -1,3 +1,7 @@
+## 0.4.5
+
+- Added loadWithExtraAsync method
+
 ## 0.4.4
 
 - Bug fixes
