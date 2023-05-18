@@ -1,3 +1,7 @@
+## 0.4.6
+
+- Fix parameter naming
+
 ## 0.4.5
 
 - Added loadWithExtraAsync method

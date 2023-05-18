@@ -14,5 +14,5 @@ typedef NetworkFilterableListState<T, F> = NetworkFilterableState<List<T>, F>;
 typedef NetworkExtraListState<T, E> = NetworkExtraState<List<T>, E>;
 typedef NetworkSearchableExtraListState<T, E>
     = NetworkSearchableExtraState<List<T>, E>;
-typedef NetworkFilterableExtraListState<T, E, F>
-    = NetworkFilterableExtraState<List<T>, E, F>;
+typedef NetworkFilterableExtraListState<T, F, E>
+    = NetworkFilterableExtraState<List<T>, F, E>;
