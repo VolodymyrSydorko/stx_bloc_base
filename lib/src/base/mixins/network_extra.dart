@@ -76,8 +76,8 @@ mixin NetworkExtraBaseMixin<T, E, S extends NetworkExtraStateBase<T, E>>
     throw UnimplementedError();
   }
 
-  Future<Tuple2<T, E>> onLoadWithExtraAsync() {
-    throw UnimplementedError();
+  Future<Tuple2<T, E>> onLoadWithExtraAsync() async {
+    return Tuple2(await onLoadAsync(), await onLoadExtraAsync());
   }
 
   Future<E> onLoadExtraAsync() {

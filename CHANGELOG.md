@@ -1,3 +1,7 @@
+## 0.4.7
+
+- Added init impl for onLoadWithExtraAsync
+
 ## 0.4.6
 
 - Fix parameter naming
