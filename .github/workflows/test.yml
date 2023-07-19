@@ -1,0 +1,27 @@
+name: Run tests
+
+on:
+  push:
+    paths-ignore:
+      - README.md
+      - CHANGELOG.md
+      - .gitignore
+      - .github/**
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: subosito/flutter-action@v2.10.0
+
+      - name: Install Dependencies
+        run: flutter packages get
+
+      - name: Analyze
+        run: flutter analyze lib test example
+
+      - name: Run tests
+        run: flutter test --no-pub --coverage --test-randomize-ordering-seed random
