@@ -1,3 +1,7 @@
+## 0.5.0
+
+- Dart 3.0 support
+
 ## 0.4.7
 
 - Added init impl for onLoadWithExtraAsync
