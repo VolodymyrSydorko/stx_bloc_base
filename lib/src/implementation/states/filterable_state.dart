@@ -6,6 +6,8 @@ class NetworkFilterableState<T, F> extends NetworkSearchableState<T>
 
   const NetworkFilterableState({
     super.status,
+    super.changeReason,
+    super.failureReason,
     required super.data,
     required super.visibleData,
     super.query,
@@ -16,15 +18,30 @@ class NetworkFilterableState<T, F> extends NetworkSearchableState<T>
       copyWith(status: NetworkStatus.loading);
 
   @override
-  NetworkFilterableState<T, F> copyWithSuccess(T data) =>
-      copyWith(status: NetworkStatus.success, data: data, visibleData: data);
+  NetworkFilterableState<T, F> copyWithSuccess(
+    T data, {
+    DataChangeReason reason = DataChangeReason.none,
+  }) =>
+      copyWith(
+        status: NetworkStatus.success,
+        changeReason: reason,
+        data: data,
+        visibleData: data,
+      );
 
-  NetworkFilterableState<T, F> copyWithFailure() =>
-      copyWith(status: NetworkStatus.failure);
+  NetworkFilterableState<T, F> copyWithFailure([
+    FailureReason reason = FailureReason.none,
+  ]) =>
+      copyWith(
+        status: NetworkStatus.failure,
+        failureReason: reason,
+      );
 
   @override
   NetworkFilterableState<T, F> copyWith({
     NetworkStatus? status,
+    DataChangeReason? changeReason,
+    FailureReason? failureReason,
     T? data,
     T? visibleData,
     String? query,
@@ -32,6 +49,8 @@ class NetworkFilterableState<T, F> extends NetworkSearchableState<T>
   }) {
     return NetworkFilterableState(
       status: status ?? this.status,
+      changeReason: changeReason ?? this.changeReason,
+      failureReason: failureReason ?? this.failureReason,
       data: data ?? this.data,
       visibleData: visibleData ?? this.visibleData,
       query: query ?? this.query,

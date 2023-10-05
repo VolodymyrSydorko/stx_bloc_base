@@ -39,7 +39,7 @@ class NotesBloc extends NetworkFilterableListBloc<Note, bool,
   }
 
   @override
-  NetworkFilterableListState<Note, bool> onStateChanged(reason, state) {
+  NetworkFilterableListState<Note, bool> onStateChanged(state) {
     final query = state.query;
     final filter = state.filter;
 

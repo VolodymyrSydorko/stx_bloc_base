@@ -18,7 +18,8 @@ mixin NetworkBlocMixin<T, S extends NetworkStateBase<T>>
   @override
   void update(T updatedData) => add(NetworkEventUpdate(updatedData));
   @override
-  void updateAsync(T updatedData) => add(NetworkEventUpdateAsync(updatedData));
+  void updateAsync(T updatedData, {bool force = true}) =>
+      add(NetworkEventUpdateAsync(updatedData, force: force));
 
   @protected
   FutureOr<void> onEventLoadAsync(
@@ -39,11 +40,15 @@ mixin NetworkBlocMixin<T, S extends NetworkStateBase<T>>
   @protected
   FutureOr<void> onEventUpdateAsync(
       NetworkEventUpdateAsync event, Emitter<NetworkStateBase<T>> emit) async {
-    return super.updateAsync(event.updatedData);
+    return super.updateAsync(event.updatedData, force: event.force);
   }
 }
 
 mixin NetworkBaseMixin<T, S extends NetworkStateBase<T>> on BlocBase<S> {
+  // S? _lastActiveState;
+
+  // S get lastActiveState => _lastActiveState ?? state;
+
   FutureOr<void> load() async {
     emit(state.copyWithLoading() as S);
 
@@ -52,12 +57,14 @@ mixin NetworkBaseMixin<T, S extends NetworkStateBase<T>> on BlocBase<S> {
 
       emit(
         onStateChanged(
-          DataChangeReason.loaded,
-          state.copyWithSuccess(data) as S,
+          state.copyWithSuccess(
+            data,
+            reason: DataChangeReason.loaded,
+          ) as S,
         ),
       );
     } catch (e, stackTrace) {
-      emit(state.copyWithFailure() as S);
+      emit(state.copyWithFailure(FailureReason.load) as S);
       addError(e, stackTrace);
     }
   }
@@ -65,26 +72,43 @@ mixin NetworkBaseMixin<T, S extends NetworkStateBase<T>> on BlocBase<S> {
   FutureOr<void> update(T updatedData) {
     emit(
       onStateChanged(
-        DataChangeReason.updated,
-        state.copyWithSuccess(updatedData) as S,
+        state.copyWithSuccess(
+          updatedData,
+          reason: DataChangeReason.updated,
+        ) as S,
       ),
     );
   }
 
-  FutureOr<void> updateAsync(T updatedData) async {
+  FutureOr<void> updateAsync(T updatedData, {bool force = true}) async {
     emit(state.copyWithLoading() as S);
 
+    final previousState = state;
+
     try {
+      if (force) {
+        emit(
+          onStateChanged(
+            state.copyWith(
+              data: updatedData,
+              changeReason: DataChangeReason.updated,
+            ) as S,
+          ),
+        );
+      }
+
       var data = await onUpdateAsync(updatedData);
 
       emit(
         onStateChanged(
-          DataChangeReason.updated,
-          state.copyWithSuccess(data) as S,
+          previousState.copyWithSuccess(
+            data,
+            reason: DataChangeReason.updated,
+          ) as S,
         ),
       );
     } catch (e, stackTrace) {
-      emit(state.copyWithFailure() as S);
+      emit(previousState.copyWithFailure(FailureReason.update) as S);
       addError(e, stackTrace);
     }
   }
@@ -93,8 +117,7 @@ mixin NetworkBaseMixin<T, S extends NetworkStateBase<T>> on BlocBase<S> {
 
   Future<T> onUpdateAsync(T updatedData) => Future.value(updatedData);
 
-  S onStateChanged(DataChangeReason reason, S state) =>
-      state.copyWith(status: NetworkStatus.success) as S;
+  S onStateChanged(S state) => state;
 
   //additional methods
   Future<S> getAsync() {
@@ -118,4 +141,26 @@ mixin NetworkBaseMixin<T, S extends NetworkStateBase<T>> on BlocBase<S> {
     updateAsync(updatedData);
     return getAsync();
   }
+
+  // @override
+  // void emit(S state, {bool temporary = false}) {
+  //   if (_lastActiveState == null) {
+  //     // set initial state
+  //     _lastActiveState = this.state;
+  //   }
+
+  //   if (!temporary) {
+  //     _lastActiveState = state;
+  //   }
+
+  //   super.emit(state);
+  // }
+
+  // S getPreviousState(S? temporaryState) {
+  //   if (identical(temporaryState, state)) {
+  //     return lastActiveState;
+  //   } else {
+  //     return state;
+  //   }
+  // }
 }

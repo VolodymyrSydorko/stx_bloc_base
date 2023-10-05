@@ -35,16 +35,19 @@ mixin NetworkExtraBaseMixin<T, E, S extends NetworkExtraStateBase<T, E>>
     emit(state.copyWithLoading() as S);
 
     try {
-      var data = await onLoadWithExtraAsync();
+      final (T data, E extra) = await onLoadWithExtraAsync();
 
       emit(
         onStateChanged(
-          DataChangeReason.loaded,
-          state.copyWithSuccess(data.$1, data.$2) as S,
+          state.copyWithSuccess(
+            data,
+            extraData: extra,
+            reason: DataChangeReason.loaded,
+          ) as S,
         ),
       );
     } catch (e, stackTrace) {
-      emit(state.copyWithFailure() as S);
+      emit(state.copyWithFailure(FailureReason.load) as S);
       addError(e, stackTrace);
     }
   }
@@ -57,15 +60,15 @@ mixin NetworkExtraBaseMixin<T, E, S extends NetworkExtraStateBase<T, E>>
 
       emit(
         onStateChanged(
-          DataChangeReason.extraLoaded,
           state.copyWith(
             status: NetworkStatus.success,
             extraData: extraData,
+            changeReason: DataChangeReason.extraLoaded,
           ) as S,
         ),
       );
     } catch (e, stackTrace) {
-      emit(state.copyWithFailure() as S);
+      emit(state.copyWithFailure(FailureReason.loadExtra) as S);
       addError(e, stackTrace);
     }
   }

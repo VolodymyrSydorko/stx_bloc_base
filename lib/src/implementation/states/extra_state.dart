@@ -6,6 +6,8 @@ class NetworkExtraState<T, E> extends NetworkState<T>
 
   const NetworkExtraState({
     super.status,
+    super.changeReason,
+    super.failureReason,
     required super.data,
     required this.extraData,
   });
@@ -15,21 +17,39 @@ class NetworkExtraState<T, E> extends NetworkState<T>
       copyWith(status: NetworkStatus.loading);
 
   @override
-  NetworkExtraState<T, E> copyWithSuccess(T data, [E? extraData]) =>
-      copyWith(status: NetworkStatus.success, data: data, extraData: extraData);
+  NetworkExtraState<T, E> copyWithSuccess(
+    T data, {
+    E? extraData,
+    DataChangeReason reason = DataChangeReason.none,
+  }) =>
+      copyWith(
+        status: NetworkStatus.success,
+        changeReason: reason,
+        data: data,
+        extraData: extraData,
+      );
 
   @override
-  NetworkExtraState<T, E> copyWithFailure() =>
-      copyWith(status: NetworkStatus.failure);
+  NetworkExtraState<T, E> copyWithFailure([
+    FailureReason reason = FailureReason.none,
+  ]) =>
+      copyWith(
+        status: NetworkStatus.failure,
+        failureReason: reason,
+      );
 
   @override
   NetworkExtraState<T, E> copyWith({
     NetworkStatus? status,
+    DataChangeReason? changeReason,
+    FailureReason? failureReason,
     T? data,
     E? extraData,
   }) {
     return NetworkExtraState(
       status: status ?? this.status,
+      changeReason: changeReason ?? this.changeReason,
+      failureReason: failureReason ?? this.failureReason,
       data: data ?? this.data,
       extraData: extraData ?? this.extraData,
     );
@@ -45,6 +65,8 @@ class NetworkSearchableExtraState<T, E> extends NetworkSearchableState<T>
 
   const NetworkSearchableExtraState({
     super.status,
+    super.changeReason,
+    super.failureReason,
     required super.data,
     required super.visibleData,
     required this.extraData,
@@ -56,21 +78,33 @@ class NetworkSearchableExtraState<T, E> extends NetworkSearchableState<T>
       copyWith(status: NetworkStatus.loading);
 
   @override
-  NetworkSearchableExtraState<T, E> copyWithSuccess(T data, [E? extraData]) =>
+  NetworkSearchableExtraState<T, E> copyWithSuccess(
+    T data, {
+    E? extraData,
+    DataChangeReason reason = DataChangeReason.none,
+  }) =>
       copyWith(
         status: NetworkStatus.success,
+        changeReason: reason,
         data: data,
         visibleData: data,
         extraData: extraData,
       );
 
   @override
-  NetworkSearchableExtraState<T, E> copyWithFailure() =>
-      copyWith(status: NetworkStatus.failure);
+  NetworkSearchableExtraState<T, E> copyWithFailure([
+    FailureReason reason = FailureReason.none,
+  ]) =>
+      copyWith(
+        status: NetworkStatus.failure,
+        failureReason: reason,
+      );
 
   @override
   NetworkSearchableExtraState<T, E> copyWith({
     NetworkStatus? status,
+    DataChangeReason? changeReason,
+    FailureReason? failureReason,
     T? data,
     T? visibleData,
     E? extraData,
@@ -78,6 +112,8 @@ class NetworkSearchableExtraState<T, E> extends NetworkSearchableState<T>
   }) {
     return NetworkSearchableExtraState(
       status: status ?? this.status,
+      changeReason: changeReason ?? this.changeReason,
+      failureReason: failureReason ?? this.failureReason,
       data: data ?? this.data,
       visibleData: visibleData ?? this.visibleData,
       extraData: extraData ?? this.extraData,
@@ -92,6 +128,8 @@ class NetworkFilterableExtraState<T, F, E> extends NetworkFilterableState<T, F>
 
   const NetworkFilterableExtraState({
     super.status,
+    super.changeReason,
+    super.failureReason,
     required super.data,
     required super.visibleData,
     required this.extraData,
@@ -104,22 +142,33 @@ class NetworkFilterableExtraState<T, F, E> extends NetworkFilterableState<T, F>
       copyWith(status: NetworkStatus.loading);
 
   @override
-  NetworkFilterableExtraState<T, F, E> copyWithSuccess(T data,
-          [E? extraData]) =>
+  NetworkFilterableExtraState<T, F, E> copyWithSuccess(
+    T data, {
+    E? extraData,
+    DataChangeReason reason = DataChangeReason.none,
+  }) =>
       copyWith(
         status: NetworkStatus.success,
+        changeReason: reason,
         data: data,
         visibleData: data,
         extraData: extraData,
       );
 
   @override
-  NetworkFilterableExtraState<T, F, E> copyWithFailure() =>
-      copyWith(status: NetworkStatus.failure);
+  NetworkFilterableExtraState<T, F, E> copyWithFailure([
+    FailureReason reason = FailureReason.none,
+  ]) =>
+      copyWith(
+        status: NetworkStatus.failure,
+        failureReason: reason,
+      );
 
   @override
   NetworkFilterableExtraState<T, F, E> copyWith({
     NetworkStatus? status,
+    DataChangeReason? changeReason,
+    FailureReason? failureReason,
     T? data,
     T? visibleData,
     E? extraData,
@@ -128,6 +177,8 @@ class NetworkFilterableExtraState<T, F, E> extends NetworkFilterableState<T, F>
   }) {
     return NetworkFilterableExtraState(
       status: status ?? this.status,
+      changeReason: changeReason ?? this.changeReason,
+      failureReason: failureReason ?? this.failureReason,
       data: data ?? this.data,
       visibleData: visibleData ?? this.visibleData,
       extraData: extraData ?? this.extraData,

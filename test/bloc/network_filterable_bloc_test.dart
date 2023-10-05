@@ -25,8 +25,8 @@ class TestFilterableNetworkBloc extends NetworkFilterableBloc<String, String,
   }
 
   NetworkFilterableState<String, String> onStateChanged(
-      DataChangeReason reason, NetworkFilterableState<String, String> state) {
-    if (reason.isFiltered) {
+      NetworkFilterableState<String, String> state) {
+    if (state.changeReason.isFiltered) {
       state = state.copyWith(data: state.filter, visibleData: state.filter);
     }
 

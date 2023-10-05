@@ -24,22 +24,30 @@ mixin NetworkListBlocMixin<T, S extends NetworkListStateBase<T>>
       add(NetworkEventAddItem(newItem, position: position));
 
   @override
-  void addItemAsync(T newItem, [AddPosition position = AddPosition.end]) =>
-      add(NetworkEventAddItemAsync(newItem, position));
+  void addItemAsync(
+    T newItem, {
+    AddPosition position = AddPosition.end,
+    bool force = true,
+  }) =>
+      add(NetworkEventAddItemAsync(
+        newItem,
+        position: position,
+        force: force,
+      ));
 
   @override
   void editItem(T updatedItem) => add(NetworkEventEditItem(updatedItem));
 
   @override
-  void editItemAsync(T updatedItem) =>
-      add(NetworkEventEditItemAsync(updatedItem));
+  void editItemAsync(T updatedItem, {bool force = true}) =>
+      add(NetworkEventEditItemAsync(updatedItem, force: force));
 
   @override
   void removeItem(T removedItem) => add(NetworkEventRemoveItem(removedItem));
 
   @override
-  void removeItemAsync(T removedItem) =>
-      add(NetworkEventRemoveItemAsync(removedItem));
+  void removeItemAsync(T removedItem, {bool force = true}) =>
+      add(NetworkEventRemoveItemAsync(removedItem, force: force));
 
   @protected
   FutureOr<void> onEventAddItem(
@@ -50,7 +58,8 @@ mixin NetworkListBlocMixin<T, S extends NetworkListStateBase<T>>
   @protected
   FutureOr<void> onEventAddItemAsync(NetworkEventAddItemAsync<T> event,
       Emitter<NetworkListStateBase<T>> emit) {
-    return super.addItemAsync(event.newItem, event.position);
+    return super.addItemAsync(event.newItem,
+        position: event.position, force: event.force);
   }
 
   @protected
@@ -62,7 +71,7 @@ mixin NetworkListBlocMixin<T, S extends NetworkListStateBase<T>>
   @protected
   FutureOr<void> onEventEditItemAsync(NetworkEventEditItemAsync<T> event,
       Emitter<NetworkListStateBase<T>> emit) {
-    return super.editItemAsync(event.updatedItem);
+    return super.editItemAsync(event.updatedItem, force: event.force);
   }
 
   @protected
@@ -74,7 +83,7 @@ mixin NetworkListBlocMixin<T, S extends NetworkListStateBase<T>>
   @protected
   FutureOr<void> onEventRemoveItemAsync(NetworkEventRemoveItemAsync event,
       Emitter<NetworkListStateBase<T>> emit) {
-    return super.removeItemAsync(event.item);
+    return super.removeItemAsync(event.item, force: event.force);
   }
 }
 
@@ -89,33 +98,75 @@ mixin NetworkListBaseMixin<T, S extends NetworkListStateBase<T>>
 
     emit(
       onStateChanged(
-        DataChangeReason.itemAdded,
-        state.copyWithSuccess(items) as S,
+        state.copyWithSuccess(
+          items,
+          reason: DataChangeReason.itemAdded,
+        ) as S,
       ),
     );
   }
 
-  FutureOr<void> addItemAsync(T newItem,
-      [AddPosition position = AddPosition.end]) async {
+  FutureOr<void> addItemAsync(
+    T newItem, {
+    AddPosition position = AddPosition.end,
+    bool force = true,
+  }) async {
     emit(state.copyWithLoading() as S);
 
     try {
+      if (force) {
+        final items = [
+          if (position.isStart) newItem,
+          ...state.data,
+          if (position.isEnd) newItem,
+        ];
+
+        emit(
+          onStateChanged(
+            state.copyWith(
+              data: items,
+              changeReason: DataChangeReason.itemAdded,
+            ) as S,
+          ),
+        );
+      }
+
       var newItemResponse = await onAddItemAsync(newItem);
 
-      final items = [
-        if (position.isStart) newItemResponse,
-        ...state.data,
-        if (position.isEnd) newItemResponse,
-      ];
+      final items = force
+          ? state.data.replaceWhere(
+              (item) => identical(item, newItem),
+              (_) => newItemResponse,
+            )
+          : [
+              if (position.isStart) newItem,
+              ...state.data,
+              if (position.isEnd) newItem
+            ];
 
       emit(
         onStateChanged(
-          DataChangeReason.itemAdded,
-          state.copyWithSuccess(items) as S,
+          state.copyWithSuccess(
+            items,
+            reason: DataChangeReason.itemAdded,
+          ) as S,
         ),
       );
     } catch (e, stackTrace) {
-      emit(state.copyWithFailure() as S);
+      final items = [...state.data]..removeWhere(
+          (item) => identical(item, newItem),
+        );
+
+      emit(
+        onStateChanged(
+          state.copyWith(
+            status: NetworkStatus.failure,
+            failureReason: FailureReason.addItem,
+            data: items,
+          ) as S,
+        ),
+      );
+
       addError(e, stackTrace);
     }
   }
@@ -128,31 +179,56 @@ mixin NetworkListBaseMixin<T, S extends NetworkListStateBase<T>>
 
     emit(
       onStateChanged(
-        DataChangeReason.itemEdited,
-        state.copyWithSuccess(items) as S,
+        state.copyWithSuccess(
+          items,
+          reason: DataChangeReason.itemEdited,
+        ) as S,
       ),
     );
   }
 
-  FutureOr<void> editItemAsync(T updatedItem) async {
+  FutureOr<void> editItemAsync(
+    T updatedItem, {
+    bool force = true,
+  }) async {
     emit(state.copyWithLoading() as S);
 
+    final previousState = state;
+
     try {
+      if (force) {
+        final items = state.data.replaceWhere(
+          (item) => equals(item, updatedItem),
+          (_) => updatedItem,
+        );
+
+        emit(
+          onStateChanged(
+            state.copyWith(
+              data: items,
+              changeReason: DataChangeReason.itemEdited,
+            ) as S,
+          ),
+        );
+      }
+
       var updatedItemResponse = await onEditItemAsync(updatedItem);
 
-      final items = state.data.replaceWhere(
+      final items = previousState.data.replaceWhere(
         (item) => equals(item, updatedItemResponse),
         (_) => updatedItemResponse,
       );
 
       emit(
         onStateChanged(
-          DataChangeReason.itemEdited,
-          state.copyWithSuccess(items) as S,
+          previousState.copyWithSuccess(
+            items,
+            reason: DataChangeReason.itemEdited,
+          ) as S,
         ),
       );
     } catch (e, stackTrace) {
-      emit(state.copyWithFailure() as S);
+      emit(previousState.copyWithFailure(FailureReason.editItem) as S);
       addError(e, stackTrace);
     }
   }
@@ -164,39 +240,60 @@ mixin NetworkListBaseMixin<T, S extends NetworkListStateBase<T>>
 
     emit(
       onStateChanged(
-        DataChangeReason.itemRemoved,
-        state.copyWithSuccess(items) as S,
+        state.copyWithSuccess(
+          items,
+          reason: DataChangeReason.itemRemoved,
+        ) as S,
       ),
     );
   }
 
-  FutureOr<void> removeItemAsync(T removedItem) async {
+  FutureOr<void> removeItemAsync(
+    T removedItem, {
+    bool force = false,
+  }) async {
     emit(state.copyWithLoading() as S);
 
-    final oldItems = [...state.data];
+    final previousState = state;
 
     try {
-      final items = [...state.data]..removeWhere(
-          (item) => equals(item, removedItem),
-        );
+      if (force) {
+        final items = [...state.data]..removeWhere(
+            (item) => equals(item, removedItem),
+          );
 
-      emit(onStateChanged(
-          DataChangeReason.itemRemoved, state.copyWithSuccess(items) as S));
+        emit(
+          onStateChanged(
+            state.copyWith(
+              data: items,
+              changeReason: DataChangeReason.itemRemoved,
+            ) as S,
+          ),
+        );
+      }
 
       final isDeleted = await onRemoveItemAsync(removedItem);
 
       if (!isDeleted) {
         emit(
-          state.copyWith(status: NetworkStatus.failure, data: oldItems) as S,
+          previousState.copyWithFailure(FailureReason.removeItem) as S,
+        );
+      } else {
+        final items = [...previousState.data]..removeWhere(
+            (item) => equals(item, removedItem),
+          );
+
+        emit(
+          onStateChanged(
+            state.copyWithSuccess(
+              items,
+              reason: DataChangeReason.itemRemoved,
+            ) as S,
+          ),
         );
       }
     } catch (e, stackTrace) {
-      emit(
-        state.copyWith(
-          status: NetworkStatus.failure,
-          data: oldItems,
-        ) as S,
-      );
+      emit(previousState.copyWithFailure(FailureReason.removeItem) as S);
       addError(e, stackTrace);
     }
   }

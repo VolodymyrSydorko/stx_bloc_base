@@ -28,9 +28,8 @@ class TestFilterableNetworkListCubit extends NetworkFilterableListCubit<String,
   }
 
   NetworkFilterableListState<String, String> onStateChanged(
-      DataChangeReason reason,
       NetworkFilterableListState<String, String> state) {
-    if (reason.isFiltered) {
+    if (state.changeReason.isFiltered) {
       state = state.copyWith(
           data: [state.filter ?? ''], visibleData: [state.filter ?? '']);
     }

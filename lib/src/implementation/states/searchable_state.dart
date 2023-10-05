@@ -7,6 +7,8 @@ class NetworkSearchableState<T> extends NetworkState<T>
 
   const NetworkSearchableState({
     super.status,
+    super.changeReason,
+    super.failureReason,
     required super.data,
     required this.visibleData,
     this.query,
@@ -16,21 +18,38 @@ class NetworkSearchableState<T> extends NetworkState<T>
       copyWith(status: NetworkStatus.loading);
 
   @override
-  NetworkSearchableState<T> copyWithSuccess(T data) =>
-      copyWith(status: NetworkStatus.success, data: data, visibleData: data);
+  NetworkSearchableState<T> copyWithSuccess(
+    T data, {
+    DataChangeReason reason = DataChangeReason.none,
+  }) =>
+      copyWith(
+        status: NetworkStatus.success,
+        changeReason: reason,
+        data: data,
+        visibleData: data,
+      );
 
-  NetworkSearchableState<T> copyWithFailure() =>
-      copyWith(status: NetworkStatus.failure);
+  NetworkSearchableState<T> copyWithFailure([
+    FailureReason reason = FailureReason.none,
+  ]) =>
+      copyWith(
+        status: NetworkStatus.failure,
+        failureReason: reason,
+      );
 
   @override
   NetworkSearchableState<T> copyWith({
     NetworkStatus? status,
+    DataChangeReason? changeReason,
+    FailureReason? failureReason,
     T? data,
     T? visibleData,
     String? query,
   }) {
     return NetworkSearchableState(
       status: status ?? this.status,
+      changeReason: changeReason ?? this.changeReason,
+      failureReason: failureReason ?? this.failureReason,
       data: data ?? this.data,
       visibleData: visibleData ?? this.visibleData,
       query: query ?? this.query,
