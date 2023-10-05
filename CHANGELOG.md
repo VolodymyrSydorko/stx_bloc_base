@@ -1,3 +1,8 @@
+## 0.6.0-beta.1
+
+- Add changeReason and failureReason to bloc state
+- Implement optimistic events
+
 ## 0.5.0
 
 - Dart 3.0 support
