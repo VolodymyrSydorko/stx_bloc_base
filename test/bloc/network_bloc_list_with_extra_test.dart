@@ -2,7 +2,6 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:test/test.dart';
 
 import 'package:stx_bloc_base/stx_bloc_base.dart';
-import 'package:tuple/tuple.dart';
 
 class Person {
   final int id;
@@ -38,10 +37,10 @@ class TestNetworkListBloc
   }
 
   @override
-  Future<Tuple2<List<Person>, int>> onLoadWithExtraAsync() async {
+  Future<(List<Person>, int)> onLoadWithExtraAsync() async {
     await Future.delayed(Duration(milliseconds: 100));
 
-    return Tuple2(persons1, 1);
+    return (persons1, 1);
   }
 
   @override

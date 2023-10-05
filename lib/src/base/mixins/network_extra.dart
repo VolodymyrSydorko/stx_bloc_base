@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:tuple/tuple.dart';
 
 import '../index.dart';
 
@@ -36,16 +35,19 @@ mixin NetworkExtraBaseMixin<T, E, S extends NetworkExtraStateBase<T, E>>
     emit(state.copyWithLoading() as S);
 
     try {
-      var data = await onLoadWithExtraAsync();
+      final (T data, E extra) = await onLoadWithExtraAsync();
 
       emit(
         onStateChanged(
-          DataChangeReason.loaded,
-          state.copyWithSuccess(data.item1, data.item2) as S,
+          state.copyWithSuccess(
+            data,
+            extraData: extra,
+            reason: DataChangeReason.loaded,
+          ) as S,
         ),
       );
     } catch (e, stackTrace) {
-      emit(state.copyWithFailure() as S);
+      emit(state.copyWithFailure(FailureReason.load) as S);
       addError(e, stackTrace);
     }
   }
@@ -58,15 +60,15 @@ mixin NetworkExtraBaseMixin<T, E, S extends NetworkExtraStateBase<T, E>>
 
       emit(
         onStateChanged(
-          DataChangeReason.extraLoaded,
           state.copyWith(
             status: NetworkStatus.success,
             extraData: extraData,
+            changeReason: DataChangeReason.extraLoaded,
           ) as S,
         ),
       );
     } catch (e, stackTrace) {
-      emit(state.copyWithFailure() as S);
+      emit(state.copyWithFailure(FailureReason.loadExtra) as S);
       addError(e, stackTrace);
     }
   }
@@ -76,8 +78,8 @@ mixin NetworkExtraBaseMixin<T, E, S extends NetworkExtraStateBase<T, E>>
     throw UnimplementedError();
   }
 
-  Future<Tuple2<T, E>> onLoadWithExtraAsync() async {
-    return Tuple2(await onLoadAsync(), await onLoadExtraAsync());
+  Future<(T data, E extra)> onLoadWithExtraAsync() async {
+    return (await onLoadAsync(), await onLoadExtraAsync());
   }
 
   Future<E> onLoadExtraAsync() {

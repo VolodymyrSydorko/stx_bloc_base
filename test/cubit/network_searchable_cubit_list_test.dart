@@ -28,8 +28,8 @@ class TestSearchableNetworkListCubit extends NetworkSearchableListCubit<String,
   }
 
   NetworkSearchableListState<String> onStateChanged(
-      DataChangeReason reason, NetworkSearchableListState<String> state) {
-    if (reason.isSearched) {
+      NetworkSearchableListState<String> state) {
+    if (state.changeReason.isSearched) {
       state = state.copyWith(
           data: [state.query ?? ''], visibleData: [state.query ?? '']);
     }

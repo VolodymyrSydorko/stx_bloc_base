@@ -7,17 +7,15 @@ documentation: https://github.com/VolodymyrSydorko/stx_bloc_base
 repository: https://github.com/VolodymyrSydorko/stx_bloc_base
 
 environment:
-  sdk: ">=2.18.0 <4.0.0"
+  sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
-  bloc: ^8.1.0
-  hydrated_bloc: ^9.0.0
+  bloc: ^8.1.2
   equatable: ^2.0.5
-  meta: ^1.8.0
-  bloc_test: ^9.1.0
-  tuple: ^2.0.1
+  meta: ^1.9.1
+  bloc_test: ^9.1.4
 
 dev_dependencies:
-  mocktail: ^0.3.0
-  test: ^1.22.1
-  lints: ^2.0.1
+  mocktail: ^1.0.1
+  test: ^1.24.7
+  lints: ^2.1.1
