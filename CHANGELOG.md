@@ -1,3 +1,7 @@
+## 0.5.1
+
+- Replaced tuple with records
+
 ## 0.5.0
 
 - Dart 3.0 support
