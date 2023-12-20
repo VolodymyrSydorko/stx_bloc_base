@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stx_bloc_base/stx_bloc_base.dart';
 
 class AccountScreen extends StatelessWidget {
-  const AccountScreen({Key? key}) : super(key: key);
+  const AccountScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class AccountScreen extends StatelessWidget {
 }
 
 class AccountView extends StatelessWidget {
-  const AccountView({Key? key}) : super(key: key);
+  const AccountView({super.key});
 
   @override
   Widget build(BuildContext context) {

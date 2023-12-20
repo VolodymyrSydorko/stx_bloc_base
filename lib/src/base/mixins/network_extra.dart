@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:tuple/tuple.dart';
 
 import '../index.dart';
 
@@ -41,7 +40,7 @@ mixin NetworkExtraBaseMixin<T, E, S extends NetworkExtraStateBase<T, E>>
       emit(
         onStateChanged(
           DataChangeReason.loaded,
-          state.copyWithSuccess(data.item1, data.item2) as S,
+          state.copyWithSuccess(data.$1, data.$2) as S,
         ),
       );
     } catch (e, stackTrace) {
@@ -76,12 +75,12 @@ mixin NetworkExtraBaseMixin<T, E, S extends NetworkExtraStateBase<T, E>>
     throw UnimplementedError();
   }
 
-  Future<Tuple2<T, E>> onLoadWithExtraAsync() async {
-    return Tuple2(await onLoadAsync(), await onLoadExtraAsync());
-  }
-
   Future<E> onLoadExtraAsync() {
     throw UnimplementedError();
+  }
+
+  Future<(T data, E extra)> onLoadWithExtraAsync() async {
+    return (await onLoadAsync(), await onLoadExtraAsync());
   }
 
   Future<S> loadWithExtraAsyncFuture() {

@@ -8,7 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stx_bloc_base/stx_bloc_base.dart';
 
 class NotesScreen extends StatelessWidget {
-  const NotesScreen({Key? key}) : super(key: key);
+  const NotesScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class NotesScreen extends StatelessWidget {
 }
 
 class NotesView extends StatelessWidget {
-  const NotesView({Key? key}) : super(key: key);
+  const NotesView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -123,9 +123,9 @@ class NotesView extends StatelessWidget {
 
 class NoteItem extends StatelessWidget {
   const NoteItem({
-    Key? key,
+    super.key,
     required this.item,
-  }) : super(key: key);
+  });
 
   final Note item;
 
