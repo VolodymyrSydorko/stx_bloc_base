@@ -6,13 +6,20 @@ abstract class NetworkFilterableStateBase<T, F> extends NetworkStateBase<T> {
 
   NetworkFilterableStateBase<T, F> copyWithLoading();
 
-  NetworkFilterableStateBase<T, F> copyWithSuccess(T data);
+  NetworkFilterableStateBase<T, F> copyWithSuccess(
+    T data, {
+    DataChangeReason reason = DataChangeReason.none,
+  });
 
-  NetworkFilterableStateBase<T, F> copyWithFailure();
+  NetworkFilterableStateBase<T, F> copyWithFailure([
+    FailureReason reason = FailureReason.none,
+  ]);
 
   @override
   NetworkFilterableStateBase<T, F> copyWith({
     NetworkStatus? status,
+    DataChangeReason? changeReason,
+    FailureReason? failureReason,
     T? data,
     T? visibleData,
     F? filter,

@@ -37,8 +37,10 @@ mixin NetworkFilterableBaseMixin<T, F,
     S extends NetworkFilterableStateBase<T, F>> on NetworkBaseMixin<T, S> {
   void filter(F filter) {
     emit(
-      onStateChanged(
-          DataChangeReason.filtered, state.copyWith(filter: filter) as S),
+      onStateChanged(state.copyWith(
+        filter: filter,
+        changeReason: DataChangeReason.filtered,
+      ) as S),
     );
   }
 
@@ -55,17 +57,19 @@ mixin NetworkFilterableBaseMixin<T, F,
 
       emit(
         onStateChanged(
-          DataChangeReason.filtered,
-          state.copyWithSuccess(filteredData) as S,
+          state.copyWithSuccess(
+            filteredData,
+            reason: DataChangeReason.filtered,
+          ) as S,
         ),
       );
     } catch (e, stackTrace) {
-      emit(state.copyWithFailure() as S);
+      emit(state.copyWithFailure(FailureReason.filter) as S);
       addError(e, stackTrace);
     }
   }
 
-  Future<T> onFilterAsync(F filter) => Future.value();
+  Future<T> onFilterAsync(F filter) => throw UnimplementedError();
 
   //additional methods
   Future<S> filterAsyncFuture(F filter) {

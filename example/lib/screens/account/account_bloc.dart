@@ -10,13 +10,21 @@ class TestState extends NetworkState<Account> {
 
   const TestState({
     super.status,
+    super.changeReason,
+    super.failureReason,
     super.data = const Account(),
     this.counter = 0,
   });
 
   @override
-  TestState copyWithSuccess(Account data, [int counter = 0]) => copyWith(
+  TestState copyWithSuccess(
+    Account data, {
+    int counter = 0,
+    DataChangeReason reason = DataChangeReason.none,
+  }) =>
+      copyWith(
         status: NetworkStatus.success,
+        changeReason: reason,
         data: data,
         counter: counter,
       );
@@ -25,11 +33,15 @@ class TestState extends NetworkState<Account> {
   @override
   TestState copyWith({
     NetworkStatus? status,
+    DataChangeReason? changeReason,
+    FailureReason? failureReason,
     Account? data,
     int? counter,
   }) {
     return TestState(
       status: status ?? this.status,
+      changeReason: changeReason ?? this.changeReason,
+      failureReason: failureReason ?? this.failureReason,
       data: data ?? this.data,
       counter: counter ?? this.counter,
     );

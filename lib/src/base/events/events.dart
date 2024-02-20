@@ -16,8 +16,12 @@ class NetworkEventUpdate<T> implements NetworkEventBase {
 
 class NetworkEventUpdateAsync<T> implements NetworkEventBase {
   final T updatedData;
+  final bool force;
 
-  const NetworkEventUpdateAsync(this.updatedData);
+  const NetworkEventUpdateAsync(
+    this.updatedData, {
+    this.force = true,
+  });
 }
 
 class NetworkEventAddItem<T> implements NetworkEventBase {
@@ -33,11 +37,13 @@ class NetworkEventAddItem<T> implements NetworkEventBase {
 class NetworkEventAddItemAsync<T> implements NetworkEventBase {
   final T newItem;
   final AddPosition position;
+  final bool force;
 
   NetworkEventAddItemAsync(
-    this.newItem, [
+    this.newItem, {
     this.position = AddPosition.end,
-  ]);
+    this.force = true,
+  });
 }
 
 class NetworkEventEditItem<T> implements NetworkEventBase {
@@ -48,8 +54,12 @@ class NetworkEventEditItem<T> implements NetworkEventBase {
 
 class NetworkEventEditItemAsync<T> implements NetworkEventBase {
   final T updatedItem;
+  final bool force;
 
-  NetworkEventEditItemAsync(this.updatedItem);
+  NetworkEventEditItemAsync(
+    this.updatedItem, {
+    this.force = true,
+  });
 }
 
 class NetworkEventRemoveItem<T> implements NetworkEventBase {
@@ -60,8 +70,12 @@ class NetworkEventRemoveItem<T> implements NetworkEventBase {
 
 class NetworkEventRemoveItemAsync<T> implements NetworkEventBase {
   final T item;
+  final bool force;
 
-  NetworkEventRemoveItemAsync(this.item);
+  NetworkEventRemoveItemAsync(
+    this.item, {
+    this.force = true,
+  });
 }
 
 class NetworkEventSearch implements NetworkEventBase {
