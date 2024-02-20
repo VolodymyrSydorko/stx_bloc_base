@@ -38,7 +38,6 @@ mixin NetworkFilterableBaseMixin<T, F,
   void filter(F filter) {
     emit(
       onStateChanged(state.copyWith(
-        status: NetworkStatus.success,
         filter: filter,
         changeReason: DataChangeReason.filtered,
       ) as S),
@@ -70,7 +69,7 @@ mixin NetworkFilterableBaseMixin<T, F,
     }
   }
 
-  Future<T> onFilterAsync(F filter) => Future.value();
+  Future<T> onFilterAsync(F filter) => throw UnimplementedError();
 
   //additional methods
   Future<S> filterAsyncFuture(F filter) {

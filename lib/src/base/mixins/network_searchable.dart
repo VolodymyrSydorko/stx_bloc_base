@@ -36,7 +36,6 @@ mixin NetworkSearchableBaseMixin<T, S extends NetworkSearchableStateBase<T>>
     emit(
       onStateChanged(
         state.copyWith(
-          status: NetworkStatus.success,
           query: query,
           changeReason: DataChangeReason.searched,
         ) as S,
@@ -69,7 +68,7 @@ mixin NetworkSearchableBaseMixin<T, S extends NetworkSearchableStateBase<T>>
     }
   }
 
-  Future<T> onSearchAsync(String query) => Future.value();
+  Future<T> onSearchAsync(String query) => throw UnimplementedError();
 
   //additional methods
   Future<S> searchAsyncFuture(String query) {
