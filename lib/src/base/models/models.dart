@@ -1,7 +1,17 @@
+import 'index.dart';
+
+/// Represents the various network statuses.
 enum NetworkStatus {
+  /// [initial] is passed to the [NetworkState] constructor.
   initial,
+
+  /// [loading] is passed to the [NetworkState.copyWithLoading] method.
   loading,
+
+  /// [success] is passed to the [NetworkState.copyWithSuccess] method.
   success,
+
+  /// [failure] is passed to the [NetworkState.copyWithFailure] method.
   failure;
 
   bool get isInitial => this == initial;
@@ -18,6 +28,7 @@ enum AddPosition {
   bool get isEnd => this == AddPosition.end;
 }
 
+/// Passed as an argument to [NetworkBaseMixin.onStateChanged] method.
 enum DataChangeReason {
   loaded,
   extraLoaded,

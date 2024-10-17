@@ -1,7 +1,12 @@
 part of 'index.dart';
 
+/// [NetworkState] is a `state` of the [NetworkCubit] and [NetworkBloc].
+///
 class NetworkState<T> extends Equatable implements NetworkStateBase<T> {
+  /// Indicates the current network [status].
   final NetworkStatus status;
+
+  /// Holds the actual [data] of type `T`, where `T` is a generic type.
   final T data;
 
   const NetworkState({
