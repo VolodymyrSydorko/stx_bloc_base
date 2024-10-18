@@ -26,10 +26,15 @@ import 'package:stx_bloc_base/src/implementation/index.dart';
 /// }
 /// ```
 ///
+/// To trigger [search]/[searchAsync] from the UI when the text changes.
+/// Example usage:
+/// ```dart
+/// TextField(
+///   onChanged: context.read<MySearchableCubit>().search,
+/// ),
+/// ```
 /// To perform [search] or [searchAsync] the [onStateChanged] needs to be overridden.
 ///```dart
-/// context.read<MyNetworkSearchableCubit>().search(query);
-///
 ///   @override
 ///   MyState onStateChanged(DataChangeReason reason, MyState state) {
 ///   final query = state.query;
@@ -66,7 +71,7 @@ import 'package:stx_bloc_base/src/implementation/index.dart';
 /// The [onLoadAsync] is invoked when [load] method is called from the UI.
 ///
 /// ```dart
-/// context.read<MyNetworkCubit>().load();
+/// context.read<MyNetworkSearchableCubit>().load();
 /// ```
 ///
 /// The [NetworkSearchableState] is managed by the [NetworkSearchableCubit]. The `<T>` in the [NetworkSearchableState] represents datatype that [NetworkSearchableCubit] holds.

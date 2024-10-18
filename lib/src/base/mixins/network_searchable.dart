@@ -9,7 +9,7 @@ import '../index.dart';
 ///
 /// Each method overrides its corresponding method in [NetworkSearchableBaseMixin] and, when called, adds the respective event to the [Bloc].
 ///
-/// After adding the event, the event handler invokes this method implementation from[NetworkSearchableBaseMixin].
+/// After adding the event, the event handler invokes this method implementation from [NetworkSearchableBaseMixin].
 ///
 /// The [network] in the [NetworkSearchableBlocMixin] is triggered when [NetworkSearchableBloc] is instantiated.
 ///
@@ -51,8 +51,7 @@ mixin NetworkSearchableBlocMixin<T, S extends NetworkSearchableStateBase<T>>
 ///
 mixin NetworkSearchableBaseMixin<T, S extends NetworkSearchableStateBase<T>>
     on NetworkBaseMixin<T, S> {
-  ///
-  /// Use to change the state base on the passed query locally.
+  /// Use to change the state based on the passed query locally.
   ///
   /// For this method to work properly, the [onStateChanged] MUST be overridden in the [NetworkSearchableCubit] or [NetworkSearchableBloc].
   ///
@@ -65,7 +64,6 @@ mixin NetworkSearchableBaseMixin<T, S extends NetworkSearchableStateBase<T>>
     );
   }
 
-  ///
   /// Use to asynchronously update the state based on the passed query.
   ///
   /// For this method to work properly, the [onStateChanged] MUST be overridden in the [NetworkSearchableCubit] or [NetworkSearchableBloc].
@@ -95,6 +93,8 @@ mixin NetworkSearchableBaseMixin<T, S extends NetworkSearchableStateBase<T>>
 
   /// [onSearchAsync] can optionally be overridden when creating [NetworkSearchableCubit] or [NetworkSearchableBloc] in order to call [searchAsync] on respective instances.
   Future<T> onSearchAsync(String query) => Future.value();
+
+  // Additional methods
 
   /// Similarly to [NetworkBaseMixin.loadAsyncFuture] and [NetworkBaseMixin.updateAsyncFuture], this is a helper method that [searchAsync] first, then returns the result of [getAsync].
   Future<S> searchAsyncFuture(String query) {

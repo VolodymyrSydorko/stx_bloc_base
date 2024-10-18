@@ -89,12 +89,16 @@ class NetworkEventSearchAsync implements NetworkEventBase {
   NetworkEventSearchAsync(this.query);
 }
 
+/// Is an event which is used by [NetworkFilterableBlocMixin.filter] to filter the data locally.
+///
 class NetworkEventFilter<F> implements NetworkEventBase {
   final F filter;
 
   NetworkEventFilter(this.filter);
 }
 
+/// Is an event which is used by [NetworkFilterableBlocMixin.filterAsync] to filter the data asynchronously.
+///
 class NetworkEventFilterAsync<F> implements NetworkEventBase {
   final F filter;
 

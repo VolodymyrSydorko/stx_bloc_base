@@ -1,7 +1,10 @@
 part of 'index.dart';
 
+/// A `state` of the [NetworkFilterableCubit] and [NetworkFilterableBloc].
+/// Inherits [data] and [status] from the [NetworkStateBase], [visibleData] and [query] from [NetworkSearchableState], and provides the new [filter] property.
 class NetworkFilterableState<T, F> extends NetworkSearchableState<T>
     implements NetworkFilterableStateBase<T, F> {
+  /// The filter itself. This can be any type, such as `bool`, `String`, a custom class, or an `enum`.
   final F? filter;
 
   const NetworkFilterableState({

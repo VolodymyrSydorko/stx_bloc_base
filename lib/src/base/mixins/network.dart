@@ -66,7 +66,7 @@ mixin NetworkBlocMixin<T, S extends NetworkStateBase<T>>
 /// Is used in conjunction with [NetworkBloc] and [NetworkCubit] as a mixin on [BlocBase] providing the implementation of [load], [update], and [updateAsync] methods.
 ///
 mixin NetworkBaseMixin<T, S extends NetworkStateBase<T>> on BlocBase<S> {
-  /// use [load] to perform asynchronous operations, such as fetching data.
+  /// Use [load] to perform asynchronous operations, such as fetching data.
   ///
   FutureOr<void> load() async {
     emit(state.copyWithLoading() as S);
@@ -168,6 +168,12 @@ mixin NetworkBaseMixin<T, S extends NetworkStateBase<T>> on BlocBase<S> {
 
   /// Is a helper method that [load] data, then return the result of [getAsync].
   ///
+  /// Example usage:
+  ///```dart
+  /// child: RefreshIndicator(
+  ///   onRefresh: context.read<MyCustomCubit>().loadAsyncFuture,
+  ///   child: SomeWidget(),
+  /// ),
   Future<S> loadAsyncFuture() {
     load();
     return getAsync();

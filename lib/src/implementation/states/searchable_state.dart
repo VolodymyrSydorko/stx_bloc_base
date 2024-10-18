@@ -1,6 +1,6 @@
 part of 'index.dart';
 
-/// Is a `state` of the [NetworkSearchableCubit] and [NetworkSearchableBloc].
+/// A `state` of the [NetworkSearchableCubit] and [NetworkSearchableBloc].
 ///
 class NetworkSearchableState<T> extends NetworkState<T>
     implements NetworkSearchableStateBase<T> {

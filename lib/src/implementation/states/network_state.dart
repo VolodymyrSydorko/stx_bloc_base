@@ -1,6 +1,6 @@
 part of 'index.dart';
 
-/// Is a `state` of the [NetworkCubit] and [NetworkBloc].
+/// A `state` of the [NetworkCubit] and [NetworkBloc].
 ///
 class NetworkState<T> extends Equatable implements NetworkStateBase<T> {
   /// Indicates the current network [status].
