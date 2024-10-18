@@ -1,11 +1,11 @@
 import '../models/models.dart';
 import '../mixins/index.dart';
 
-/// [NetworkEventBase] is an abstract class which is served as a base class for other events implementations.
+/// Is an abstract class which is served as a base class for other events implementations.
 ///
 abstract class NetworkEventBase {}
 
-/// [NetworkEventLoadAsync] is an event which is used by [NetworkBlocMixin.load] to perform  fetching data asynchronously.
+/// Is an event which is used by [NetworkBlocMixin.load] to perform  fetching data asynchronously.
 ///
 class NetworkEventLoadAsync implements NetworkEventBase {}
 
@@ -13,7 +13,7 @@ class NetworkEventLoadWithExtraAsync implements NetworkEventBase {}
 
 class NetworkEventLoadExtraAsync implements NetworkEventBase {}
 
-/// [NetworkEventUpdate] is an event which is used by [NetworkBlocMixin.update] to update the data locally.
+/// Is an event which is used by [NetworkBlocMixin.update] to update the data locally.
 ///
 class NetworkEventUpdate<T> implements NetworkEventBase {
   final T updatedData;
@@ -21,7 +21,7 @@ class NetworkEventUpdate<T> implements NetworkEventBase {
   const NetworkEventUpdate(this.updatedData);
 }
 
-/// [NetworkEventUpdateAsync] is an event which is used by [NetworkBlocMixin.updateAsync] to update the data asynchronously.
+/// Is an event which is used by [NetworkBlocMixin.updateAsync] to update the data asynchronously.
 ///
 class NetworkEventUpdateAsync<T> implements NetworkEventBase {
   final T updatedData;
@@ -73,7 +73,7 @@ class NetworkEventRemoveItemAsync<T> implements NetworkEventBase {
   NetworkEventRemoveItemAsync(this.item);
 }
 
-/// [NetworkEventSearch] is an event which is used by [NetworkSearchableBlocMixin.search] to search the data locally.
+/// Is an event which is used by [NetworkSearchableBlocMixin.search] to search the data locally.
 ///
 class NetworkEventSearch implements NetworkEventBase {
   final String query;
@@ -81,7 +81,7 @@ class NetworkEventSearch implements NetworkEventBase {
   NetworkEventSearch(this.query);
 }
 
-/// [NetworkEventSearchAsync] is an event which is used by [NetworkSearchableBlocMixin.searchAsync] to search the data asynchronously.
+/// Is an event which is used by [NetworkSearchableBlocMixin.searchAsync] to search the data asynchronously.
 ///
 class NetworkEventSearchAsync implements NetworkEventBase {
   final String query;

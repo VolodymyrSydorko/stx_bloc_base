@@ -5,7 +5,7 @@ import 'package:meta/meta.dart';
 
 import '../index.dart';
 
-/// [NetworkBlocMixin] extends the functionality of the [Bloc] by adding [load], [update], and [updateAsync] convenience methods.
+/// Extends the functionality of the [Bloc] by adding [load], [update], and [updateAsync] convenience methods.
 ///
 /// Each method overrides its corresponding method in [NetworkBaseMixin] and, when called, adds the respective event to the [Bloc].
 ///
@@ -13,7 +13,6 @@ import '../index.dart';
 ///
 /// The [network] in the [NetworkBlocMixin] is triggered when [NetworkBloc] is instantiated.
 ///
-
 mixin NetworkBlocMixin<T, S extends NetworkStateBase<T>>
     on Bloc<NetworkEventBase, S>, NetworkBaseMixin<T, S> {
   void network() {
@@ -22,21 +21,19 @@ mixin NetworkBlocMixin<T, S extends NetworkStateBase<T>>
     on<NetworkEventUpdateAsync>(onEventUpdateAsync);
   }
 
-  /// [load] method of the [NetworkBlocMixin] overrides the [NetworkBaseMixin.load] and add the [NetworkEventLoadAsync] to the [Bloc] event queue.
+  /// Overrides the [NetworkBaseMixin.load] and add the [NetworkEventLoadAsync] to the [Bloc] event queue.
   ///
   /// When the event is added, the [onEventLoadAsync] calls the [NetworkBaseMixin.load] which invokes [onLoadAsync] internally.
-  ///
   @override
   void load() => add(NetworkEventLoadAsync());
 
-  /// [update] of the [NetworkBlocMixin] overrides the [NetworkBaseMixin.update] and adds the [NetworkEventUpdate] to the [Bloc].
+  /// Overrides the [NetworkBaseMixin.update] and adds the [NetworkEventUpdate] to the [Bloc] event queue.
   ///
   /// When the event is added, the [onEventUpdate] calls the [NetworkBaseMixin.update].
-  ///
   @override
   void update(T updatedData) => add(NetworkEventUpdate(updatedData));
 
-  /// [updateAsync] of the [NetworkBlocMixin] overrides the [NetworkBaseMixin.updateAsync] and adds the [NetworkEventUpdateAsync] to the [Bloc].
+  /// Overrides the [NetworkBaseMixin.updateAsync] and adds the [NetworkEventUpdateAsync] to the [Bloc] event queue.
   ///
   /// When the event is added, the [onEventUpdateAsync] calls the [NetworkBaseMixin.updateAsync] which invokes [onUpdateAsync] internally.
   ///
@@ -66,7 +63,7 @@ mixin NetworkBlocMixin<T, S extends NetworkStateBase<T>>
   }
 }
 
-/// [NetworkBaseMixin] is used in conjunction with [NetworkBloc] and [NetworkCubit] as a mixin on [BlocBase] providing the implementation of [load], [update], and [updateAsync] methods.
+/// Is used in conjunction with [NetworkBloc] and [NetworkCubit] as a mixin on [BlocBase] providing the implementation of [load], [update], and [updateAsync] methods.
 ///
 mixin NetworkBaseMixin<T, S extends NetworkStateBase<T>> on BlocBase<S> {
   /// use [load] to perform asynchronous operations, such as fetching data.
@@ -89,7 +86,7 @@ mixin NetworkBaseMixin<T, S extends NetworkStateBase<T>> on BlocBase<S> {
     }
   }
 
-  /// use [update] to update the `data` locally.
+  /// Use to update the `data` locally.
   ///
   FutureOr<void> update(T updatedData) {
     emit(
@@ -100,7 +97,7 @@ mixin NetworkBaseMixin<T, S extends NetworkStateBase<T>> on BlocBase<S> {
     );
   }
 
-  /// use [updateAsync] to update the `data` asynchronously.
+  /// Use to update the `data` asynchronously.
   ///
 
   FutureOr<void> updateAsync(T updatedData) async {
@@ -121,15 +118,15 @@ mixin NetworkBaseMixin<T, S extends NetworkStateBase<T>> on BlocBase<S> {
     }
   }
 
-  /// [onLoadAsync] MUST be overridden when [NetworkBloc] or [NetworkCubit] is created.
+  /// Must be overridden when [NetworkBloc] or [NetworkCubit] is created.
   ///
   /// [onLoadAsync] is called  internally  when [load] method is called.
   Future<T> onLoadAsync();
 
-  /// [onUpdateAsync] can optionally be overridden when creating [NetworkBloc] or [NetworkCubit].
+  ///  Can optionally be overridden when creating [NetworkBloc] or [NetworkCubit].
   ///
   /// [onUpdateAsync] is called internally when [updateAsync] is called.
-  /// Example usage
+  /// Example usage:
   /// ```dart
   ///   @override
   ///   Future<Data> onUpdateAsync(Data updatedData) async {
@@ -139,7 +136,7 @@ mixin NetworkBaseMixin<T, S extends NetworkStateBase<T>> on BlocBase<S> {
   ///
   Future<T> onUpdateAsync(T updatedData) => Future.value(updatedData);
 
-  /// [onStateChanged] returns the state with modified `status`.
+  /// Returns the state with modified `status`.
   ///
   /// It accepts [state] and [reason] that has
   /// been updated (typically via `copyWithSuccess`) and ensures that the `status`
@@ -169,14 +166,14 @@ mixin NetworkBaseMixin<T, S extends NetworkStateBase<T>> on BlocBase<S> {
     }
   }
 
-  /// [loadAsyncFuture] is a helper method that [load] data, then return the result of [getAsync].
+  /// Is a helper method that [load] data, then return the result of [getAsync].
   ///
   Future<S> loadAsyncFuture() {
     load();
     return getAsync();
   }
 
-  /// [updateAsyncFuture] is a helper method that [updateAsync] first, then returns the result of [getAsync].
+  /// Is a helper method that [updateAsync] first, then returns the result of [getAsync].
   ///
   Future<S> updateAsyncFuture(T updatedData) {
     updateAsync(updatedData);

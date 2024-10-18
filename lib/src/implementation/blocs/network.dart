@@ -3,9 +3,7 @@ import 'package:stx_bloc_base/src/base/index.dart';
 import 'package:stx_bloc_base/src/implementation/index.dart';
 
 /// {@template networkbloc}
-/// A [NetworkBloc] is an extension of [Bloc] to facilitate working with asynchronous data.
-///
-/// Like [NetworkCubit], it shares the same methods as[load], [update], and [updateAsync].
+/// A utility class that extends [Bloc] to facilitate working with asynchronous data. Like [NetworkCubit], it shares the same methods as [load], [update], and [updateAsync].
 ///
 /// The [onLoadAsync] should be to be overridden when extending [NetworkBloc].
 ///
@@ -22,13 +20,16 @@ import 'package:stx_bloc_base/src/implementation/index.dart';
 /// }
 /// ```
 ///
-/// The key idea behind [NetworkBloc] (and its descendants) is to have the ability to use the [Bloc] in a similar way to  [Cubit]. By calling the provided methods, it internally adds [NetworkEventLoadAsync], [NetworkEventUpdate], [NetworkEventUpdateAsync] events to [Bloc]).
+/// The key idea behind [NetworkBloc] (and its descendants) is to provide functionality similar to [Cubit], allowing specific events to be added by calling the provided methods: when [load], [update], [updateAsync] are called, the corresponding [NetworkEventLoadAsync], [NetworkEventUpdate], or [NetworkEventUpdateAsync] are added internally to the [Bloc]).
 ///
+/// This is achieved by invoking the [network] method from the [NetworkBlocMixin] when [NetworkBloc] is instantiated.
+///
+/// The [onLoadAsync] is invoked when [load] method is called from the UI.
 /// ```dart
 /// context.read<MyNetworkBloc>().load();
 /// ```
 ///
-/// This is achieved by invoking the [network] method from the [NetworkBlocMixin] when [NetworkBloc] is instantiated.
+/// The [NetworkState] is managed by [NetworkBloc]. The `<T>` in the [NetworkState] represents datatype that [NetworkState] holds.
 ///
 /// {@endtemplate}
 abstract class NetworkBloc<T, S extends NetworkState<T>>
