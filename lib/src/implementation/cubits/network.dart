@@ -4,7 +4,7 @@ import 'package:stx_bloc_base/src/base/mixins/index.dart';
 import 'package:stx_bloc_base/src/implementation/index.dart';
 
 /// {@template networkcubit}
-/// A utility class that extends [Cubit] to facilitate working with asynchronous data, providing convenience methods such as [load], [update], and [updateAsync].
+/// A utility class that extends [Cubit] to facilitate working with asynchronous data.
 ///
 /// The [onLoadAsync] MUST be overridden when extending [NetworkCubit].
 ///
@@ -27,7 +27,7 @@ import 'package:stx_bloc_base/src/implementation/index.dart';
 /// context.read<MyNetworkCubit>().load();
 /// ```
 ///
-/// The [NetworkState] is managed by [NetworkCubit]. The `<T>` in the [NetworkState] represents datatype that [NetworkCubit] holds.
+/// The `<T>` in the [NetworkState] represents datatype that [NetworkCubit] holds.
 ///
 /// {@endtemplate}
 abstract class NetworkCubit<T, S extends NetworkState<T>> extends Cubit<S>

@@ -2,16 +2,16 @@ import 'package:stx_bloc_base/src/base/mixins/index.dart';
 import 'package:stx_bloc_base/src/implementation/index.dart';
 
 /// {@template networklistcubit}
-/// A utility class that extends [NetworkCubit] to simplify working with asynchronous `List` data, providing [addItem], [addItemAsync], [editItem], [editItemAsync], [removeItem], and [removeItemAsync], and also inheriting [load], [update], and [updateAsync] from [NetworkCubit].
+/// A utility class that simplifies working with asynchronous `List` data.
 ///
 /// The [onLoadAsync] and [equals] MUST be overridden when extending [NetworkListCubit].
 ///
 /// ```dart
 /// class Note {
-///   const Note(this.id, this.item);
+///   const Note(this.id, this.message);
 
 ///   final int id;
-///   final String item;
+///   final String message;
 /// }
 /// /// In the state specify <Note> instead of List<Note>.
 /// typedef MyListState = NetworkListState<Note>;
@@ -25,8 +25,8 @@ import 'package:stx_bloc_base/src/implementation/index.dart';
 ///   }
 ///
 ///   @override
-///   bool equals(Note note1, Note note2) {
-///     return note1.id == note2.id;
+///   bool equals(Note item1, Note item2) {
+///     return item1.id == item2.id;
 ///   }
 /// }
 /// ```
@@ -36,7 +36,7 @@ import 'package:stx_bloc_base/src/implementation/index.dart';
 /// context.read<MyListCubit>().load();
 /// ```
 ///
-/// The [NetworkListState] is managed by [NetworkListCubit]. The `<T>` in [NetworkListState] represents the type of data that [NetworkListCubit] holds. Only the data type needs to be specified, not a `List<T>`.
+/// The `<T>` in [NetworkListState] represents the type of data that [NetworkListCubit] holds. Only the data type needs to be specified, not a `List<T>`.
 ///
 /// {@endtemplate}
 abstract class NetworkListCubit<T, S extends NetworkListState<T>>

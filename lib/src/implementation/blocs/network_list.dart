@@ -3,16 +3,16 @@ import 'package:stx_bloc_base/src/implementation/index.dart';
 import 'package:bloc/bloc.dart';
 
 /// {@template networklistbloc}
-/// A utility class that extends [NetworkBloc] to simplify working with asynchronous `List` data. Like [NetworkListCubit], it shares the same methods as [addItem], [addItemAsync], [editItem], [editItemAsync], [removeItem], and [removeItemAsync], and also inheriting [load], [update], and [updateAsync] from [NetworkBloc].
+/// A utility class that simplifies working with asynchronous `List` data. Instead of manually adding the event, simply call the desired method, which internally adds the corresponding event to the [Bloc] and ensures it is handled by internally.
 ///
 /// The [onLoadAsync] and [equals] MUST be overridden when extending [NetworkListBloc].
 ///
 /// ```dart
 /// class Note {
-///   const Note(this.id, this.item);
+///   const Note(this.id, this.message);
 
 ///   final int id;
-///   final String item;
+///   final String message;
 /// }
 /// /// In the state specify <Note> instead of List<Note>.
 /// typedef MyListState = NetworkListState<Note>;
@@ -26,21 +26,19 @@ import 'package:bloc/bloc.dart';
 ///   }
 ///
 ///   @override
-///   bool equals(Note note1, Note note2) {
-///     return note1.id == note2.id;
+///   bool equals(Note item1, Note item2) {
+///     return item1.id == item.id;
 ///   }
 /// }
 /// ```
-/// The key idea behind [NetworkListBloc] is to provide functionality similar to [Cubit], allowing specific events to be added by calling the provided methods: when [addItem], [addItemAsync], [editItem], [editItemAsync], [removeItem], and [removeItemAsync] are called, the corresponding [NetworkEventAddItem], [NetworkEventAddItemAsync], [NetworkEventEditItem], [NetworkEventAddItemAsync], [NetworkEventRemoveItem], or [NetworkEventRemoveItemAsync] are added internally to the [Bloc]).
 ///
-/// This is achieved by invoking the [network] method from the [NetworkListBlocMixin] when [NetworkListBloc] is instantiated.
 ///
 /// The [onLoadAsync] is invoked when [load] method is called from the UI.
 /// ```dart
 /// context.read<MyListBloc>().load();
 /// ```
 ///
-/// The [NetworkListState] is managed by [NetworkListBloc]. The `<T>` in [NetworkListState] represents the type of data that [NetworkListBloc] holds. Only the data type needs to be specified, not a `List<T>`.
+/// The `<T>` in [NetworkListState] represents the type of data that [NetworkListBloc] holds. Only the data type needs to be specified, not a `List<T>`.
 ///
 /// {@endtemplate}
 abstract class NetworkListBloc<T, S extends NetworkListState<T>>

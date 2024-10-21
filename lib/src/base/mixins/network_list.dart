@@ -38,7 +38,7 @@ mixin NetworkListBlocMixin<T, S extends NetworkListStateBase<T>>
 
   /// Overrides the [NetworkListBaseMixin.addItemAsync] and add the [NetworkEventAddItemAsync] to the [Bloc] event queue.
   ///
-  /// When the event is added, the [onEventAddItemAsync] calls the [NetworkListBaseMixin.addItemAsync] which invonkes [onAddItemAsync] internally.
+  /// When the event is added, the [onEventAddItemAsync] calls the [NetworkListBaseMixin.addItemAsync] which invokes [onAddItemAsync] internally.
   ///
   /// The optional [AddPosition] specifies where to add the item in the list: either at the end (default) or at the start.
   @override

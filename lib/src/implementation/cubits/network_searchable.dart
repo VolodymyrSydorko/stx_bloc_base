@@ -2,7 +2,7 @@ import 'package:stx_bloc_base/src/base/mixins/index.dart';
 import 'package:stx_bloc_base/src/implementation/index.dart';
 
 /// {@template networksearchablecubit}
-/// A utility class that extends [NetworkCubit] to facilitate working with asynchronous data, providing convenience methods such as [search] and [searchAsync], and also inheriting [load], [update], and [updateAsync] from [NetworkCubit].
+/// A utility class that simplifies working with asynchronous data, specifically for search and update operations.
 ///
 /// The [onLoadAsync] MUST be overridden when extending [NetworkSearchableCubit].
 ///

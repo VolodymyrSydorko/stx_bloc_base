@@ -2,17 +2,17 @@ import 'package:stx_bloc_base/src/base/mixins/index.dart';
 import 'package:stx_bloc_base/src/implementation/index.dart';
 
 /// {@template networkfilterablecubit}
-/// A utility class that extends [NetworkSearchableCubit] to facilitate working with asynchronous data, providing convenience methods such as [filter] and [filterAsync], and also inheriting [search], [searchAsync] from [NetworkSearchableCubit] and [load], [update], and [updateAsync] from [NetworkCubit].
+/// A utility class that simplifies working with asynchronous data, specifically for filtering.
 ///
 /// The [onLoadAsync] MUST be overridden when extending [NetworkFilterableCubit].
 ///
 /// ```dart
 ///
 /// class Note {
-///   const Note(this.id, this.item);
+///   const Note(this.id, this.message);
 ///
 ///  final int id;
-///  final String item;
+///  final String message;
 /// }
 /// typedef MyData = List<Note>;
 ///  // The bool represents the filter type, meaning that the boolean value should be passed to the filter() method.
@@ -91,7 +91,7 @@ import 'package:stx_bloc_base/src/implementation/index.dart';
 /// context.read<MyFilterableCubit>().load();
 /// ```
 ///
-/// The [NetworkFilterableState] is managed by the [NetworkFilterableCubit]. The `<T>` in the [NetworkFilterableState] represents datatype that [NetworkFilterableCubit] holds, and `<F>` represents the the filter data type, which can be any type, such as `bool`, `String`, a custom class, or an `enum`.
+/// The `<T>` in the [NetworkFilterableState] represents datatype that [NetworkFilterableCubit] holds, and `<F>` represents the the filter data type, which can be any type, such as `bool`, `String`, a custom class, or an `enum`.
 ///
 /// {@endtemplate}
 abstract class NetworkFilterableCubit<T, F,

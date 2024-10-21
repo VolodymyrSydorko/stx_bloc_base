@@ -2,7 +2,7 @@ import 'package:stx_bloc_base/src/base/index.dart';
 import 'package:stx_bloc_base/src/implementation/index.dart';
 
 /// {@template networksearchablebloc}
-/// A utility class that extends [NetworkBloc] to facilitate working with asynchronous data. Like [NetworkSearchableCubit], it shares the same methods as [search] and [searchAsync], and also inheriting [load], [update], and [updateAsync] from [NetworkBloc].
+/// A utility class that simplifies working with asynchronous data, specifically for search and update operations. Instead of manually adding the event, simply call the desired method, which internally adds the corresponding event to the [Bloc] and ensures it is handled by internally.
 ///
 /// The [onLoadAsync] MUST be overridden when extending [NetworkSearchableBloc].
 ///
@@ -25,9 +25,6 @@ import 'package:stx_bloc_base/src/implementation/index.dart';
 ///   }
 /// }
 /// ```
-/// The key idea behind [NetworkSearchableBloc] is to provide functionality similar to `Cubit`, allowing specific events to be added by calling the provided methods: when [search], [searchAsync], and inherited [load], [update], [updateAsync] are called, the corresponding [NetworkEventSearch], [NetworkEventSearchAsync], and inherited [NetworkEventLoadAsync], [NetworkEventUpdate], or [NetworkEventUpdateAsync] are added internally to the `Bloc`).
-///
-/// This is achieved by invoking the [network] method from the [NetworkSearchableBlocMixin] when [NetworkSearchableBloc] is instantiated.
 ///
 /// To trigger [search]/[searchAsync] from the UI when the text changes.
 /// Example usage:
@@ -77,7 +74,7 @@ import 'package:stx_bloc_base/src/implementation/index.dart';
 /// ```dart
 /// context.read<MyNetworkSearchableBloc>().load();
 /// ```
-/// The [NetworkSearchableState] is managed by the [NetworkSearchableBloc]. The `<T>` in the [NetworkSearchableState] represents datatype that [NetworkSearchableBloc] holds.
+/// The `<T>` in the [NetworkSearchableState] represents datatype that [NetworkSearchableBloc] holds.
 ///
 /// {@endtemplate}
 abstract class NetworkSearchableBloc<T, S extends NetworkSearchableState<T>>

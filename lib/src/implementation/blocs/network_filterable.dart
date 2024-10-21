@@ -2,17 +2,17 @@ import 'package:stx_bloc_base/src/base/index.dart';
 import 'package:stx_bloc_base/src/implementation/index.dart';
 
 /// {@template networkfilterablebloc}
-/// A utility class that extends [NetworkSearchableBloc] to facilitate working with asynchronous data. Like [NetworkFilterableCubit], it shares the same methods as [filter] and [filterAsync], and also inheriting [search], [searchAsync] from [NetworkSearchableBloc] and [load], [update], and [updateAsync] from [NetworkBloc].
+/// A utility class that simplifies working with asynchronous data, specifically for filtering. Instead of manually adding the event, simply call the desired method, which internally adds the corresponding event to the [Bloc] and ensures it is handled by internally.
 ///
 /// The [onLoadAsync] MUST be overridden when extending [NetworkFilterableCubit].
 ///
 /// ```dart
 ///
 /// class Note {
-///   const Note(this.id, this.item);
+///   const Note(this.id, this.message);
 ///
 ///  final int id;
-///  final String item;
+///  final String message;
 /// }
 /// typedef MyData = List<Note>;
 ///  // The bool represents the filter type, meaning that the boolean value should be passed to the filter() method.
@@ -33,9 +33,7 @@ import 'package:stx_bloc_base/src/implementation/index.dart';
 ///   }
 /// }
 /// ```
-/// The key idea behind [NetworkFilterableBloc] is to provide functionality similar to `Cubit`, allowing specific events to be added by calling the provided methods: when [filter], [filterAsync], and inherited [search], [searchAsync], [load], [update], [updateAsync] are called, the corresponding [NetworkEventFilter], [NetworkEventFilterAsync], and inherited [NetworkEventSearch], [NetworkEventSearchAsync],[NetworkEventLoadAsync], [NetworkEventUpdate], or [NetworkEventUpdateAsync] are added internally to the `Bloc`).
-///
-/// This is achieved by invoking the [network] method from the [NetworkFilterableBlocMixin] when [NetworkFilterableBloc] is instantiated.
+//
 ///
 /// Trigger [filter]/[filterAsync] from the UI example usage:
 /// ```dart
@@ -54,7 +52,7 @@ import 'package:stx_bloc_base/src/implementation/index.dart';
 ///   if (filter != null) {
 ///     visibleData = visibleData
 ///         .where(
-///           (item) => filter ? item.id.isEven : item.id.isOdd,
+///           (note) => filter ? note.id.isEven : note.id.isOdd,
 ///         )
 ///         .toList();
 ///   }
@@ -73,7 +71,7 @@ import 'package:stx_bloc_base/src/implementation/index.dart';
 ///   if (query != null && query.isNotEmpty) {
 ///     visibleData = visibleData
 ///         .where(
-///           (item) => item.item.contains(query),
+///           (note) => note.message.contains(query),
 ///         )
 ///         .toList();
 ///   }
@@ -81,7 +79,7 @@ import 'package:stx_bloc_base/src/implementation/index.dart';
 ///   if (filter != null) {
 ///     visibleData = visibleData
 ///         .where(
-///           (item) => filter ? item.id.isEven : item.id.isOdd,
+///           (note) => filter ? note.id.isEven : note.id.isOdd,
 ///         )
 ///         .toList();
 ///   }
@@ -94,7 +92,7 @@ import 'package:stx_bloc_base/src/implementation/index.dart';
 /// context.read<MyFilterableBloc>().load();
 /// ```
 ///
-/// The [NetworkFilterableState] is managed by the [NetworkFilterableBloc]. The `<T>` in the [NetworkFilterableState] represents datatype that [NetworkFilterableBloc] holds, and `<F>` represents the the filter data type, which can be any type, such as `bool`, `String`, a custom class, or an `enum`.
+/// The `<T>` in the [NetworkFilterableState] represents datatype that [NetworkFilterableBloc] holds, and `<F>` represents the the filter data type, which can be any type, such as `bool`, `String`, a custom class, or an `enum`.
 ///
 /// {@endtemplate}
 abstract class NetworkFilterableBloc<T, F,

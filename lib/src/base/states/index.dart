@@ -12,7 +12,3 @@ part 'filterable_state_base.dart';
 ///
 /// Is used in conjunction with [NetworkListBlocMixin].
 typedef NetworkListStateBase<T> = NetworkStateBase<List<T>>;
-
-typedef NetworkSearchableListStateBase<T> = NetworkSearchableStateBase<List<T>>;
-typedef NetworkFilterableListStateBase<T, F>
-    = NetworkFilterableStateBase<List<T>, F>;
