@@ -33,7 +33,7 @@ import 'package:stx_bloc_base/src/implementation/index.dart';
 ///   }
 /// }
 /// ```
-/// The key idea behind [NetworkFilterableBloc] (and its descendants) is to provide functionality similar to `Cubit`, allowing specific events to be added by calling the provided methods: when [filter], [filterAsync], and inherited [search], [searchAsync], [load], [update], [updateAsync] are called, the corresponding [NetworkEventFilter], [NetworkEventFilterAsync], and inherited [NetworkEventSearch], [NetworkEventSearchAsync],[NetworkEventLoadAsync], [NetworkEventUpdate], or [NetworkEventUpdateAsync] are added internally to the `Bloc`).
+/// The key idea behind [NetworkFilterableBloc] is to provide functionality similar to `Cubit`, allowing specific events to be added by calling the provided methods: when [filter], [filterAsync], and inherited [search], [searchAsync], [load], [update], [updateAsync] are called, the corresponding [NetworkEventFilter], [NetworkEventFilterAsync], and inherited [NetworkEventSearch], [NetworkEventSearchAsync],[NetworkEventLoadAsync], [NetworkEventUpdate], or [NetworkEventUpdateAsync] are added internally to the `Bloc`).
 ///
 /// This is achieved by invoking the [network] method from the [NetworkFilterableBlocMixin] when [NetworkFilterableBloc] is instantiated.
 ///

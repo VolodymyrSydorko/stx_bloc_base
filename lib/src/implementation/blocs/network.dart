@@ -20,7 +20,7 @@ import 'package:stx_bloc_base/src/implementation/index.dart';
 /// }
 /// ```
 ///
-/// The key idea behind [NetworkBloc] (and its descendants) is to provide functionality similar to [Cubit], allowing specific events to be added by calling the provided methods: when [load], [update], [updateAsync] are called, the corresponding [NetworkEventLoadAsync], [NetworkEventUpdate], or [NetworkEventUpdateAsync] are added internally to the [Bloc]).
+/// The key idea behind [NetworkBloc] is to provide functionality similar to [Cubit], allowing specific events to be added by calling the provided methods: when [load], [update], [updateAsync] are called, the corresponding [NetworkEventLoadAsync], [NetworkEventUpdate], or [NetworkEventUpdateAsync] are added internally to the [Bloc]).
 ///
 /// This is achieved by invoking the [network] method from the [NetworkBlocMixin] when [NetworkBloc] is instantiated.
 ///

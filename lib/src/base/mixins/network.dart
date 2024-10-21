@@ -9,7 +9,7 @@ import '../index.dart';
 ///
 /// Each method overrides its corresponding method in [NetworkBaseMixin] and, when called, adds the respective event to the [Bloc].
 ///
-/// After adding the event, the event handler invokes this method implementation from[NetworkBaseMixin].
+/// After adding the event, the event handler invokes this method implementation from [NetworkBaseMixin].
 ///
 /// The [network] in the [NetworkBlocMixin] is triggered when [NetworkBloc] is instantiated.
 ///
@@ -36,7 +36,6 @@ mixin NetworkBlocMixin<T, S extends NetworkStateBase<T>>
   /// Overrides the [NetworkBaseMixin.updateAsync] and adds the [NetworkEventUpdateAsync] to the [Bloc] event queue.
   ///
   /// When the event is added, the [onEventUpdateAsync] calls the [NetworkBaseMixin.updateAsync] which invokes [onUpdateAsync] internally.
-  ///
   @override
   void updateAsync(T updatedData) => add(NetworkEventUpdateAsync(updatedData));
 
@@ -118,9 +117,10 @@ mixin NetworkBaseMixin<T, S extends NetworkStateBase<T>> on BlocBase<S> {
     }
   }
 
-  /// Must be overridden when [NetworkBloc] or [NetworkCubit] is created.
-  ///
   /// [onLoadAsync] is called  internally  when [load] method is called.
+  ///
+  /// Must be overridden when [NetworkBloc] or [NetworkCubit] is created. When extending [NetworkBloc] or [NetworkCubit], the IDE will warn that this method requires an override due to the missing implementation.
+  ///
   Future<T> onLoadAsync();
 
   ///  Can optionally be overridden when creating [NetworkBloc] or [NetworkCubit].

@@ -89,7 +89,7 @@ mixin NetworkFilterableBaseMixin<T, F,
     }
   }
 
-  /// [filterAsync] can optionally be overridden when creating [NetworkFilterableCubit] or [NetworkFilterableBloc] in order to call [filterAsync] on respective instances.
+  /// Can optionally be overridden when creating [NetworkFilterableCubit] or [NetworkFilterableBloc] in order to call [filterAsync] on respective instances.
   Future<T> onFilterAsync(F filter) => Future.value();
 
   // Additional methods

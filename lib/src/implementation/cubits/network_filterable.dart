@@ -26,7 +26,7 @@ import 'package:stx_bloc_base/src/implementation/index.dart';
 ///             visibleData: [],
 ///           ),
 ///         );
-
+///
 ///   @override
 ///   Future<MyData> onLoadAsync() async {
 ///    return someRepository.fetchData();

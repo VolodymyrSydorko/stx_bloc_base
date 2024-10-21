@@ -25,7 +25,7 @@ import 'package:stx_bloc_base/src/implementation/index.dart';
 ///   }
 /// }
 /// ```
-/// The key idea behind [NetworkSearchableBloc] (and its descendants) is to provide functionality similar to `Cubit`, allowing specific events to be added by calling the provided methods: when [search], [searchAsync], and inherited [load], [update], [updateAsync] are called, the corresponding [NetworkEventSearch], [NetworkEventSearchAsync], and inherited [NetworkEventLoadAsync], [NetworkEventUpdate], or [NetworkEventUpdateAsync] are added internally to the `Bloc`).
+/// The key idea behind [NetworkSearchableBloc] is to provide functionality similar to `Cubit`, allowing specific events to be added by calling the provided methods: when [search], [searchAsync], and inherited [load], [update], [updateAsync] are called, the corresponding [NetworkEventSearch], [NetworkEventSearchAsync], and inherited [NetworkEventLoadAsync], [NetworkEventUpdate], or [NetworkEventUpdateAsync] are added internally to the `Bloc`).
 ///
 /// This is achieved by invoking the [network] method from the [NetworkSearchableBlocMixin] when [NetworkSearchableBloc] is instantiated.
 ///

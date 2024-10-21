@@ -20,8 +20,12 @@ enum NetworkStatus {
   bool get isFailure => this == failure;
 }
 
+/// The [AddPosition] specifies where to add the item in the list.
 enum AddPosition {
+  /// [start] specifies whether to add the item at the start of the `List`.
   start,
+
+  /// [end] specifies whether to add the item at the end of the `List`.
   end;
 
   bool get isStart => this == AddPosition.start;

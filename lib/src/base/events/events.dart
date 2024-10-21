@@ -29,6 +29,8 @@ class NetworkEventUpdateAsync<T> implements NetworkEventBase {
   const NetworkEventUpdateAsync(this.updatedData);
 }
 
+/// Is an event which is used by [NetworkListBlocMixin.addItem] to add item to the `List` locally.
+///
 class NetworkEventAddItem<T> implements NetworkEventBase {
   NetworkEventAddItem(
     this.newItem, {
@@ -39,6 +41,8 @@ class NetworkEventAddItem<T> implements NetworkEventBase {
   final AddPosition position;
 }
 
+/// Is an event which is used by [NetworkListBlocMixin.addItemAsync] to add item to the `List` asynchronously.
+///
 class NetworkEventAddItemAsync<T> implements NetworkEventBase {
   final T newItem;
   final AddPosition position;
@@ -49,24 +53,32 @@ class NetworkEventAddItemAsync<T> implements NetworkEventBase {
   ]);
 }
 
+/// Is an event which is used by [NetworkListBlocMixin.editItem] to edit item in the `List` locally.
+///
 class NetworkEventEditItem<T> implements NetworkEventBase {
   final T updatedItem;
 
   NetworkEventEditItem(this.updatedItem);
 }
 
+/// Is an event which is used by [NetworkListBlocMixin.editItemAsync] to edit item in the `List` asynchronously.
+///
 class NetworkEventEditItemAsync<T> implements NetworkEventBase {
   final T updatedItem;
 
   NetworkEventEditItemAsync(this.updatedItem);
 }
 
+/// Is an event which is used by [NetworkListBlocMixin.removeItem] to remove item from the `List` locally.
+///
 class NetworkEventRemoveItem<T> implements NetworkEventBase {
   final T item;
 
   NetworkEventRemoveItem(this.item);
 }
 
+/// Is an event which is used by [NetworkListBlocMixin.removeItemAsync] to remove item from the `List` asynchronously.
+///
 class NetworkEventRemoveItemAsync<T> implements NetworkEventBase {
   final T item;
 
