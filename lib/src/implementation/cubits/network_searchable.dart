@@ -1,12 +1,12 @@
 import 'package:stx_bloc_base/src/base/mixins/index.dart';
 import 'package:stx_bloc_base/src/implementation/index.dart';
 
-/// {@template networksearchablecubit}
 /// A utility class that simplifies working with asynchronous data, specifically for search and update operations.
 ///
-/// The [onLoadAsync] MUST be overridden when extending [NetworkSearchableCubit].
+/// Example usage:
 ///
 /// ```dart
+/// //  The state contains the `data` of any type in this case `List<String>` and `status` (NetworkStatus), which is by default [NetworkStatus.initial], `visibleData` will be used to display the data in the UI based on the user's search input, and `query` is used to store the user's search input.
 /// typedef MyData = List<String>;
 /// typedef MyState = NetworkSearchableState<MyData>;
 ///
@@ -15,45 +15,68 @@ import 'package:stx_bloc_base/src/implementation/index.dart';
 ///       : super(
 ///           const MyState(
 ///             data: [],
+///             // visibleData will be used to display the data in the UI based on the user's search input.
 ///             visibleData: [],
 ///           ),
 ///         );
-
+///
+///   // MUST be overridden when extending [NetworkSearchableCubit].
 ///   @override
 ///   Future<MyData> onLoadAsync() async {
-///    return someRepository.fetchData();
+///     return Future.value(List.generate(1000, (index) => 'Item ${index + 1}'));
 ///   }
-/// }
-/// ```
 ///
-/// To trigger [search]/[searchAsync] from the UI when the text changes.
-/// Example usage:
-/// ```dart
-/// TextField(
-///   onChanged: context.read<MySearchableCubit>().search,
-/// ),
-/// ```
-/// To perform [search] or [searchAsync] the [onStateChanged] needs to be overridden.
-///```dart
+///   // Can optionally be overridden when extending [NetworkSearchableCubit] to perform search asynchronously.
+///   @override
+///   Future<MyData> onSearchAsync(String query) async {
+///     return Future.value(
+///         state.data.where((element) => element.contains(query)).toList());
+///   }
+///
+///   // Needs to be overridden when extending [NetworkSearchableCubit] in order to `search` method to work.
 ///   @override
 ///   MyState onStateChanged(DataChangeReason reason, MyState state) {
-///   final query = state.query;
-///   var visibleData = state.data;
+///     final query = state.query;
+///     var visibleData = state.data;
 ///
-///   if (query != null && query.isNotEmpty) {
-///     visibleData = visibleData
-///         .where(
-///           (item) => item.contains(query),
-///         )
-///         .toList();
+///     if (query != null && query.isNotEmpty) {
+///       visibleData = visibleData
+///           .where(
+///             (item) => item.contains(query),
+///           )
+///           .toList();
+///     }
+///     return state.copyWith(visibleData: visibleData);
 ///   }
-///   return state.copyWith(visibleData: visibleData);
+///
+///   // Can optionally be overridden when extending [NetworkSearchableCubit].
+///   @override
+///   Future<MyData> onUpdateAsync(updatedData) async {
+///     return Future.value([
+///       ...updatedData,
+///       ...state.data,
+///     ]);
+///   }
 /// }
-///```
+/// ```
 ///
-/// Note: When working with `BlocBuilder`, the`state.visibleData` should be used.
+/// The [onSearchAsync] is invoked when [searchAsync] method is called from the UI.
+/// ```dart
+/// TextField(
+///  onChanged: context.read<MySearchableCubit>().searchAsync,
+/// ),
+/// ```
 ///
-///  For example:
+/// The [search] method is used to search the data with the provided query.
+/// ```dart
+/// TextField(
+///  onChanged: context.read<MySearchableCubit>().search,
+/// ),
+/// ```
+///
+/// _Note:_ When working with `BlocBuilder`, the`state.visibleData` should be used.
+///
+///  Example usage:
 ///```dart
 /// BlocBuilder<MyNetworkSearchableCubit, MyState>(
 ///   builder: (context, state) {
@@ -68,17 +91,39 @@ import 'package:stx_bloc_base/src/implementation/index.dart';
 /// );
 ///```
 ///
-/// The [onLoadAsync] is invoked when [load] method is called from the UI.
-///
+/// The [onUpdateAsync] is invoked when [updateAsync] method is called from the UI.
 /// ```dart
-/// context.read<MyNetworkSearchableCubit>().load();
+/// /// // This will update the state with the new data.
+/// TextButton(
+///   onPressed: () {
+///     context.read<MyNetworkSearchableCubit>().updateAsync(['New item']);
+///   },
+///   child: Text('Update Data Async'),
+/// )
 /// ```
 ///
-/// The [NetworkSearchableState] is managed by the [NetworkSearchableCubit]. The `<T>` in the [NetworkSearchableState] represents datatype that [NetworkSearchableCubit] holds.
+/// The [update] method is used to update the state with the new data.
+/// ```dart
+/// // This will replace the data with the new value.
+/// TextButton(
+///   onPressed: () {
+///     context.read<MyNetworkSearchableCubit>().update(['New item']);
+///   },
+///   child: Text('Update Data'),
+/// )
+/// ```
 ///
-/// {@endtemplate}
+/// The [onLoadAsync] is invoked when [load] method is called from the UI.
+/// ```dart
+/// BlocProvider(
+///   create: (context) => MyNetworkSearchableCubit()..load(),
+///   child: {
+///     // Your widget here
+///   },
+/// )
+/// ```
+///
 abstract class NetworkSearchableCubit<T, S extends NetworkSearchableState<T>>
     extends NetworkCubit<T, S> with NetworkSearchableBaseMixin<T, S> {
-  /// {@macro networksearchablecubit}
   NetworkSearchableCubit(super.initialState);
 }

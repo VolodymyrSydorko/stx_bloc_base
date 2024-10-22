@@ -8,13 +8,13 @@ part 'extra_state.dart';
 part 'searchable_state.dart';
 part 'filterable_state.dart';
 
-/// A `state` of the [NetworkListCubit] and [NetworkListBloc]. Simplifies the use of `state` working with a `List`.
+/// A `state` of the [NetworkListCubit] and [NetworkListBloc] represented as a `List`.
 typedef NetworkListState<T> = NetworkState<List<T>>;
 
-/// A `state` of the [NetworkSearchableListCubit] and [NetworkSearchableListBloc]. Simplifies the use of `state` working with a `List`.
+/// A `state` of the [NetworkSearchableListCubit] and [NetworkSearchableListBloc] represented as a `List`.
 typedef NetworkSearchableListState<T> = NetworkSearchableState<List<T>>;
 
-/// A `state` of the [NetworkFilterableListCubit] and [NetworkFilterableListBloc]. Simplifies the use of `state` working with a `List`.
+/// A `state` of the [NetworkFilterableListCubit] and [NetworkFilterableListBloc] represented as a `List`.
 typedef NetworkFilterableListState<T, F> = NetworkFilterableState<List<T>, F>;
 
 typedef NetworkExtraListState<T, E> = NetworkExtraState<List<T>, E>;
