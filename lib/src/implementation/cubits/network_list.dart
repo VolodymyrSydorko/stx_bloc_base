@@ -207,11 +207,12 @@ import 'package:stx_bloc_base/src/implementation/index.dart';
 /// The [onLoadAsync] is invoked when [load] method is called from the UI.
 /// ```dart
 /// BlocProvider(
-///  create: (context) => MyNetworkListCubit()..load(),
-/// child: {
-/// // Your widget here
-/// },
+///   create: (context) => MyNetworkListCubit()..load(),
+///   child: {
+///     // Your widget here
+///   },
 /// )
+/// ```
 /// ```
 ///
 abstract class NetworkListCubit<T, S extends NetworkListState<T>>

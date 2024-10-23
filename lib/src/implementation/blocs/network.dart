@@ -46,7 +46,6 @@ import 'package:stx_bloc_base/src/implementation/index.dart';
 ///   child: Text('Update Data'),
 /// )
 /// ```
-/// ```
 /// The [update] method is used to update the state with the new data.
 /// ```dart
 /// // This will update the data with the new value.

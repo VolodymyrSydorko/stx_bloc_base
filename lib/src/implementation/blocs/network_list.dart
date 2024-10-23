@@ -208,10 +208,10 @@ import 'package:bloc/bloc.dart';
 /// The [onLoadAsync] is invoked when [load] method is called from the UI.
 /// ```dart
 /// BlocProvider(
-///  create: (context) => MyNetworkListBloc()..loadAsync(),
-/// child: {
-/// // Your widget here
-/// },
+///   create: (context) => MyNetworkListBLoc()..load(),
+///   child: {
+///     // Your widget here
+///   },
 /// )
 /// ```
 ///

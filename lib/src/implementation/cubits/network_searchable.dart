@@ -6,7 +6,9 @@ import 'package:stx_bloc_base/src/implementation/index.dart';
 /// Example usage:
 ///
 /// ```dart
-/// //  The state contains the `data` of any type in this case `List<String>` and `status` (NetworkStatus), which is by default [NetworkStatus.initial], `visibleData` will be used to display the data in the UI based on the user's search input, and `query` is used to store the user's search input.
+/// //  The state contains the `data` of any type in this case `List<String>` and `status` (NetworkStatus), which is by default [NetworkStatus.initial],
+/// // `visibleData` will be used to display the data in the UI based on the user's search input,
+/// // and `query` is used to store the user's search input.
 /// typedef MyData = List<String>;
 /// typedef MyState = NetworkSearchableState<MyData>;
 ///

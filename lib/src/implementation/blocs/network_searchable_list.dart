@@ -104,7 +104,7 @@ import 'package:stx_bloc_base/src/implementation/index.dart';
 ///   }
 /// }
 /// ```
-/// /// The [onAddItemAsync] is invoked when [addItemAsync] method is called from the UI.
+/// The [onAddItemAsync] is invoked when [addItemAsync] method is called from the UI.
 ///```dart
 /// TextButton(
 ///   onPressed: () => context.read<MyNetworkSearchableBloc>().addItemAsync(

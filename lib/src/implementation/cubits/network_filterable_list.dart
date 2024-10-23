@@ -246,22 +246,22 @@ import 'package:stx_bloc_base/src/implementation/index.dart';
 /// The [search] method is used to search the data with the provided query.
 /// ```dart
 /// TextField(
-///  onChanged: context.read<MyNetworkSearchableCubit>().search,
+///  onChanged: context.read<MyNetworkFilterableListCubit>().search,
 /// ),
 /// ```
 ///
 /// The [onFilterAsync] is invoked when [filterAsync] method is called from the UI.
 /// ```dart
 /// TextButton(
-///  onPressed: () => context.read<MyNetworkFilterableListCubit>().filterAsync(Filter.even),
-/// child: const Text('Filter even'),
+///   onPressed: () => context.read<MyNetworkFilterableListCubit>().filterAsync(Filter.even),
+///   child: const Text('Filter even'),
 /// ),
 /// ```
 /// The [filter] method is used to filter the data with the provided filter.
 /// ```dart
 /// TextButton(
-/// onPressed: () => context.read<MyNetworkFilterableListCubit>().filter(Filter.odd),
-/// child: const Text('Filter odd'),
+///   onPressed: () => context.read<MyNetworkFilterableListCubit>().filter(Filter.odd),
+///   child: const Text('Filter odd'),
 /// ),
 /// ```
 ///
