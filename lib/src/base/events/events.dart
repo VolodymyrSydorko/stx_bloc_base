@@ -5,12 +5,16 @@ import '../mixins/index.dart';
 ///
 abstract class NetworkEventBase {}
 
-/// Is an event which is used by [NetworkBlocMixin.load] to perform  fetching data asynchronously.
+/// Is an event which is used by [NetworkBlocMixin.load] to perform fetching data asynchronously.
 ///
 class NetworkEventLoadAsync implements NetworkEventBase {}
 
+/// Is an event which is used by [NetworkExtraBlocMixin.loadWithExtra] to perform fetching data plus extra data asynchronously.
+///
 class NetworkEventLoadWithExtraAsync implements NetworkEventBase {}
 
+/// Is an event which is used by [NetworkExtraBlocMixin.loadExtra] to perform fetching extra data asynchronously.
+///
 class NetworkEventLoadExtraAsync implements NetworkEventBase {}
 
 /// Is an event which is used by [NetworkBlocMixin.update] to update the data locally.

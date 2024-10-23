@@ -11,10 +11,11 @@ import '../index.dart';
 ///
 /// After adding the event, the event handler invokes this method implementation from [NetworkSearchableBaseMixin].
 ///
-/// The [network] in the [NetworkSearchableBlocMixin] is triggered when [NetworkSearchableBloc] is instantiated.
-///
+
 mixin NetworkSearchableBlocMixin<T, S extends NetworkSearchableStateBase<T>>
     on NetworkBlocMixin<T, S>, NetworkSearchableBaseMixin<T, S> {
+  /// The [network] in the [NetworkSearchableBlocMixin] is triggered when [NetworkSearchableBloc] is instantiated.
+  ///
   @override
   void network() {
     on<NetworkEventSearch>(onEventSearch);
@@ -96,7 +97,7 @@ mixin NetworkSearchableBaseMixin<T, S extends NetworkSearchableStateBase<T>>
 
   // Additional methods
 
-  /// Similarly to [NetworkBaseMixin.loadAsyncFuture] and [NetworkBaseMixin.updateAsyncFuture], this is a helper method that [searchAsync] first, then returns the result of [getAsync].
+  /// Is a helper method that [searchAsync] first, then returns the first `state` if the [NetworkStatus] is **not** `loading`.
   Future<S> searchAsyncFuture(String query) {
     searchAsync(query);
     return getAsync();

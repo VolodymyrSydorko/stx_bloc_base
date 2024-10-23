@@ -13,11 +13,13 @@ import '../index.dart';
 ///
 /// After adding the event, the event handler invokes this method implementation from [NetworkListBaseMixin].
 ///
-/// The [network] in the [NetworkListBlocMixin] is triggered when [NetworkListBloc] is instantiated.
-///
+
 mixin NetworkListBlocMixin<T, S extends NetworkListStateBase<T>>
     on NetworkBlocMixin<List<T>, S>, NetworkListBaseMixin<T, S> {
   @override
+
+  /// The [network] in the [NetworkListBlocMixin] is triggered when [NetworkListBloc] is instantiated.
+  ///
   void network() {
     on<NetworkEventAddItem<T>>(onEventAddItem);
     on<NetworkEventAddItemAsync<T>>(onEventAddItemAsync);
@@ -273,19 +275,19 @@ mixin NetworkListBaseMixin<T, S extends NetworkListStateBase<T>>
 
   // Additional methods
 
-  /// Is a helper method that [addItemAsync] first, then returns the result of [getAsync].
+  /// Is a helper method that [addItemAsync] first, then returns the first `state` if the [NetworkStatus] is **not** `loading`.
   Future<S> addItemAsyncFuture(T newItem) {
     addItemAsync(newItem);
     return getAsync();
   }
 
-  /// Is a helper method that [editItemAsync] first, then returns the result of [getAsync].
+  /// Is a helper method that [editItemAsync] first, then returns the first `state` if the [NetworkStatus] is **not** `loading`.
   Future<S> editItemAsyncFuture(T updatedItem) {
     editItemAsync(updatedItem);
     return getAsync();
   }
 
-  /// Is a helper method that [removeItemAsync] first, then returns the result of [getAsync].
+  /// Is a helper method that [removeItemAsync] first, then returns the first `state` if the [NetworkStatus] is **not** `loading`.
   Future<S> removeItemAsyncFuture(T removedItem) {
     removeItemAsync(removedItem);
     return getAsync();

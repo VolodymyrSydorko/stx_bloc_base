@@ -11,10 +11,11 @@ import '../index.dart';
 ///
 /// After adding the event, the event handler invokes this method implementation from [NetworkBaseMixin].
 ///
-/// The [network] in the [NetworkBlocMixin] is triggered when [NetworkBloc] is instantiated.
-///
+
 mixin NetworkBlocMixin<T, S extends NetworkStateBase<T>>
     on Bloc<NetworkEventBase, S>, NetworkBaseMixin<T, S> {
+  /// The [network] in the [NetworkBlocMixin] is triggered when [NetworkBloc] is instantiated.
+  ///
   void network() {
     on<NetworkEventLoadAsync>(onEventLoadAsync);
     on<NetworkEventUpdate>(onEventUpdate);
@@ -166,7 +167,7 @@ mixin NetworkBaseMixin<T, S extends NetworkStateBase<T>> on BlocBase<S> {
     }
   }
 
-  /// Is a helper method that [load] data, then return the result of [getAsync].
+  /// Is a helper method that [load] data, then returns the first `state` if the [NetworkStatus] is **not** `loading`.
   ///
   /// Example usage:
   ///```dart
@@ -179,7 +180,7 @@ mixin NetworkBaseMixin<T, S extends NetworkStateBase<T>> on BlocBase<S> {
     return getAsync();
   }
 
-  /// Is a helper method that [updateAsync] first, then returns the result of [getAsync].
+  /// Is a helper method that [updateAsync] first, then returns the first `state` if the [NetworkStatus] is **not** `loading`.
   ///
   Future<S> updateAsyncFuture(T updatedData) {
     updateAsync(updatedData);

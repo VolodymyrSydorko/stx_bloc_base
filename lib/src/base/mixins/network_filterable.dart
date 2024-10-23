@@ -11,12 +11,13 @@ import '../index.dart';
 ///
 /// After adding the event, the event handler invokes this method implementation from [NetworkFilterableBaseMixin].
 ///
-/// The [network] in the [NetworkFilterableBlocMixin] is triggered when [NetworkFilterableBloc] is instantiated.
-///
 mixin NetworkFilterableBlocMixin<T, F,
         S extends NetworkFilterableStateBase<T, F>>
     on NetworkBlocMixin<T, S>, NetworkFilterableBaseMixin<T, F, S> {
   @override
+
+  /// The [network] in the [NetworkFilterableBlocMixin] is triggered when [NetworkFilterableBloc] is instantiated.
+  ///
   void network() {
     on<NetworkEventFilter>(onEventFilter);
     on<NetworkEventFilterAsync>(onEventFilterAsync);
@@ -93,7 +94,7 @@ mixin NetworkFilterableBaseMixin<T, F,
   Future<T> onFilterAsync(F filter) => Future.value();
 
   // Additional methods
-  /// Similarly to [NetworkBaseMixin.loadAsyncFuture] and [NetworkBaseMixin.updateAsyncFuture], this is a helper method that [filterAsync] first, then returns the result of [getAsync].
+  /// Is a helper method that [filterAsync] first, then returns the first `state` if the [NetworkStatus] is **not** `loading`.
   Future<S> filterAsyncFuture(F filter) {
     filterAsync(filter);
     return getAsync();

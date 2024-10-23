@@ -1,5 +1,6 @@
 part of 'index.dart';
 
+/// A `state` which is used in conjunction with [NetworkExtraBlocMixin] and [NetworkExtraBaseMixin], provides a new [extraData] property.
 class NetworkExtraState<T, E> extends NetworkState<T>
     implements NetworkExtraStateBase<T, E> {
   final E extraData;
@@ -39,6 +40,7 @@ class NetworkExtraState<T, E> extends NetworkState<T>
   List<Object?> get props => [...super.props, extraData];
 }
 
+/// A `state` which is used in conjunction with [NetworkExtraBlocMixin] and [NetworkExtraBaseMixin], provides a new [extraData] property and can be used as `state` of [NetworkSearchableCubit] and [NetworkSearchableBloc] and its descendant.
 class NetworkSearchableExtraState<T, E> extends NetworkSearchableState<T>
     implements NetworkExtraStateBase<T, E> {
   final E extraData;
@@ -86,6 +88,7 @@ class NetworkSearchableExtraState<T, E> extends NetworkSearchableState<T>
   }
 }
 
+/// A `state` which is used in conjunction with [NetworkExtraBlocMixin] and [NetworkExtraBaseMixin], provides a new [extraData] property and can be used as `state` of [NetworkFilterableCubit] and [NetworkFilterableBloc] and its descendant.
 class NetworkFilterableExtraState<T, F, E> extends NetworkFilterableState<T, F>
     implements NetworkExtraStateBase<T, E> {
   final E extraData;

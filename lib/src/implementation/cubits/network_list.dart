@@ -167,6 +167,7 @@ import 'package:stx_bloc_base/src/implementation/index.dart';
 /// ```
 ///
 /// The [removeItem] method is used to remove an item from the list.
+/// ```dart
 /// ListView.builder(
 ///   itemCount: state.data.length,
 ///   itemBuilder: (context, index) {
@@ -177,7 +178,7 @@ import 'package:stx_bloc_base/src/implementation/index.dart';
 ///           TextButton(
 ///             onPressed: () => context
 ///                 .read<MyNetworkListCubit>()
-///                 .removeItemA(item),
+///                 .removeItem(item),
 ///             child: const Text('Remove item'),
 ///           ),
 ///        ],
@@ -203,10 +204,10 @@ import 'package:stx_bloc_base/src/implementation/index.dart';
 ///     child: const Text('Update data')),
 /// ```
 ///
-/// The [onLoadAsync] is invoked when [loadAsync] method is called from the UI.
+/// The [onLoadAsync] is invoked when [load] method is called from the UI.
 /// ```dart
 /// BlocProvider(
-///  create: (context) => MyNetworkListCubit()..loadAsync(),
+///  create: (context) => MyNetworkListCubit()..load(),
 /// child: {
 /// // Your widget here
 /// },

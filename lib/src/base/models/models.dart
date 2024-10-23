@@ -34,13 +34,28 @@ enum AddPosition {
 
 /// Passed as an argument to [NetworkBaseMixin.onStateChanged] method.
 enum DataChangeReason {
+  /// [loaded] is passed when [NetworkBaseMixin.load] or [NetworkExtraBaseMixin.loadWithExtra] is called.
   loaded,
+
+  /// [extraLoaded] is passed when [NetworkExtraBaseMixin.loadExtra] is called.
   extraLoaded,
+
+  /// [updated] is passed when [NetworkBaseMixin.update] or [NetworkBaseMixin.updateAsync] is called.
   updated,
+
+  /// [updated] is passed when [NetworkListBaseMixin.addItem] or [NetworkListBaseMixin.addItemAsync] is called.
   itemAdded,
+
+  /// [itemEdited] is passed when [NetworkListBaseMixin.editItem] or [NetworkListBaseMixin.editItemAsync] is called.
   itemEdited,
+
+  /// [itemRemoved] is passed when [NetworkListBaseMixin.removeItem] or [NetworkListBaseMixin.removeItemAsync] is called.
   itemRemoved,
+
+  /// [searched] is passed when [NetworkSearchableBaseMixin.search] or [NetworkSearchableBaseMixin.searchAsync] is called.
   searched,
+
+  /// [filtered] is passed when [NetworkFilterableBaseMixin.filter] or [NetworkFilterableBaseMixin.filterAsync] is called.
   filtered;
 
   bool get isLoaded => this == loaded;

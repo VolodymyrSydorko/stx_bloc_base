@@ -7,14 +7,6 @@ part of 'index.dart';
 abstract class NetworkFilterableStateBase<T, F> extends NetworkStateBase<T> {
   /// Holds the data of type `T`, that will be displayed in the UI based on the applied [filter].
   ///
-  /// ```dart
-  /// BlocBuilder<MyNetworkSearchableBloc, MyNetworkSearchableState<Data>>(
-  /// builder: (context, state) {
-  ///    return MyWidget(state.visibleData);
-  ///   }
-  /// );
-  /// ```
-
   T get visibleData;
 
   /// The filter itself. This can be any type, such as `bool`, `String`, a custom class, or an `enum`.
