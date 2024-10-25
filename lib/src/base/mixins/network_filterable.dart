@@ -23,13 +23,13 @@ mixin NetworkFilterableBlocMixin<T, F,
     on<NetworkEventFilterAsync>(onEventFilterAsync);
   }
 
-  /// [filter] method of the [NetworkFilterableBlocMixin] overrides the [NetworkFilterableBaseMixin.filter] and add the [NetworkEventFilter] to the [Bloc] event queue.
+  /// Overrides the [NetworkFilterableBaseMixin.filter] and add the [NetworkEventFilter] to the [Bloc] event queue.
   ///
   /// When the event is added, the [onEventFilter] calls the the [NetworkFilterableBaseMixin.filter] which invokes [filter] internally.
   @override
   void filter(F filter) => add(NetworkEventFilter(filter));
 
-  /// [filterAsync] method of the [NetworkFilterableBlocMixin] overrides the [NetworkFilterableBaseMixin.filterAsync] and add the [NetworkEventFilterAsync] to the [Bloc] event queue.
+  /// Overrides the [NetworkFilterableBaseMixin.filterAsync] and add the [NetworkEventFilterAsync] to the [Bloc] event queue.
   ///
   /// When the event is added, the [onEventFilterAsync] calls the the [NetworkFilterableBaseMixin.filterAsync] which invokes [filterAsync] internally.
   @override
@@ -52,7 +52,7 @@ mixin NetworkFilterableBlocMixin<T, F,
 
 mixin NetworkFilterableBaseMixin<T, F,
     S extends NetworkFilterableStateBase<T, F>> on NetworkBaseMixin<T, S> {
-  /// Use to change the state based on the applied filter locally.
+  /// Use to change the `state` based on the applied filter locally.
   ///
   /// For this method to work properly, the [onStateChanged] MUST be overridden in the [NetworkFilterableCubit] or [NetworkFilterableBloc].
   ///
@@ -63,9 +63,7 @@ mixin NetworkFilterableBaseMixin<T, F,
     );
   }
 
-  /// Use to asynchronously update the state based on the applied filter.
-  ///
-  /// For this method to work properly, the [onStateChanged] MUST be overridden in the [NetworkFilterableCubit] or [NetworkFilterableBloc].
+  /// Use to asynchronously update the `state` based on the applied filter.
   ///
   FutureOr<void> filterAsync(F filter) async {
     emit(
@@ -94,7 +92,8 @@ mixin NetworkFilterableBaseMixin<T, F,
   Future<T> onFilterAsync(F filter) => Future.value();
 
   // Additional methods
-  /// Is a helper method that [filterAsync] first, then returns the first `state` if the [NetworkStatus] is **not** `loading`.
+  /// Performs filtering, then returns a `state` with updated data.
+  ///
   Future<S> filterAsyncFuture(F filter) {
     filterAsync(filter);
     return getAsync();

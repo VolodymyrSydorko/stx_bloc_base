@@ -86,7 +86,7 @@ mixin NetworkBaseMixin<T, S extends NetworkStateBase<T>> on BlocBase<S> {
     }
   }
 
-  /// Use to update the `data` locally.
+  /// Use [update] to update the `data` in a `state` locally.
   ///
   FutureOr<void> update(T updatedData) {
     emit(
@@ -97,7 +97,7 @@ mixin NetworkBaseMixin<T, S extends NetworkStateBase<T>> on BlocBase<S> {
     );
   }
 
-  /// Use to update the `data` asynchronously.
+  /// Use [updateAsync] to update the `data` in a `state` asynchronously.
   ///
 
   FutureOr<void> updateAsync(T updatedData) async {
@@ -127,17 +127,10 @@ mixin NetworkBaseMixin<T, S extends NetworkStateBase<T>> on BlocBase<S> {
   ///  Can optionally be overridden when creating [NetworkBloc] or [NetworkCubit].
   ///
   /// [onUpdateAsync] is called internally when [updateAsync] is called.
-  /// Example usage:
-  /// ```dart
-  ///   @override
-  ///   Future<Data> onUpdateAsync(Data updatedData) async {
-  ///     return someRepository.update(updatedData);
-  ///   }
-  /// ```
   ///
   Future<T> onUpdateAsync(T updatedData) => Future.value(updatedData);
 
-  /// Returns the state with modified `status`.
+  /// Returns the `state` with modified `status`.
   ///
   /// It accepts [state] and [reason] that has
   /// been updated (typically via `copyWithSuccess`) and ensures that the `status`
@@ -148,9 +141,8 @@ mixin NetworkBaseMixin<T, S extends NetworkStateBase<T>> on BlocBase<S> {
 
   // Additional methods
   ///
-  /// Returns the first `state` if the [NetworkStatus] is **not** `loading`.
+  /// Starts listening to a stream of `state`s and returns the first `state` if the [NetworkStatus] is **not** `loading`. **Ensure** to trigger an event to prevent endless listening.
   ///
-  ///  Listens to the stream and stops after the first match.
   Future<S> getAsync() {
     return stream.firstWhere((state) => !state.status.isLoading);
   }
@@ -167,20 +159,15 @@ mixin NetworkBaseMixin<T, S extends NetworkStateBase<T>> on BlocBase<S> {
     }
   }
 
-  /// Is a helper method that [load] data, then returns the first `state` if the [NetworkStatus] is **not** `loading`.
+  /// Performs a `data` fetching, then returns a `state` with updated data.
   ///
-  /// Example usage:
-  ///```dart
-  /// child: RefreshIndicator(
-  ///   onRefresh: context.read<MyCustomCubit>().loadAsyncFuture,
-  ///   child: SomeWidget(),
-  /// ),
   Future<S> loadAsyncFuture() {
     load();
     return getAsync();
   }
 
-  /// Is a helper method that [updateAsync] first, then returns the first `state` if the [NetworkStatus] is **not** `loading`.
+  /// Performs a `data` update, then return a `state`
+  ///  with updated data.
   ///
   Future<S> updateAsyncFuture(T updatedData) {
     updateAsync(updatedData);

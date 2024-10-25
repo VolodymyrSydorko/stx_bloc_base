@@ -7,7 +7,7 @@ abstract class NetworkStateBase<T> {
   /// Indicates the current network [status].
   NetworkStatus get status;
 
-  /// Holds the actual [data] of type `T`, where `T` is a generic type.
+  /// Holds the actual [data].
   T get data;
 
   NetworkStateBase<T> copyWithLoading();

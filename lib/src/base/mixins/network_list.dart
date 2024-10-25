@@ -162,7 +162,6 @@ mixin NetworkListBaseMixin<T, S extends NetworkListStateBase<T>>
 
   /// Use [editItem] to edit item in the `List` locally.
   ///
-  /// For this method to work properly, the [equals] MUST be overridden in the [NetworkListCubit] or [NetworkListBloc]. When extending [NetworkListCubit] or [NetworkListBloc], the IDE will warn that this method requires an override due to the missing implementation.
   void editItem(T updatedItem) {
     final items = state.data.replaceWhere(
       (item) => equals(item, updatedItem),
@@ -179,7 +178,6 @@ mixin NetworkListBaseMixin<T, S extends NetworkListStateBase<T>>
 
   /// Use [editItemAsync] to edit item in the `List` asynchronously.
   ///
-  /// For this method to work properly, the [equals] MUST be overridden in the [NetworkListCubit] or [NetworkListBloc]. When extending [NetworkListCubit] or [NetworkListBloc], the IDE will warn that this method requires an override due to the missing implementation.
   FutureOr<void> editItemAsync(T updatedItem) async {
     emit(state.copyWithLoading() as S);
 
@@ -205,7 +203,6 @@ mixin NetworkListBaseMixin<T, S extends NetworkListStateBase<T>>
 
   /// Use [removeItem] to remove item from the `List` locally.
   ///
-  /// For this method to work properly, the [equals] MUST be overridden in the [NetworkListCubit] or [NetworkListBloc]. When extending [NetworkListCubit] or [NetworkListBloc], the IDE will warn that this method requires an override due to the missing implementation.
   void removeItem(T removedItem) {
     final items = [...state.data]..removeWhere(
         (item) => equals(item, removedItem),
@@ -221,7 +218,6 @@ mixin NetworkListBaseMixin<T, S extends NetworkListStateBase<T>>
 
   /// Use [removeItemAsync] to remove item from the `List` asynchronously.
   ///
-  /// For this method to work properly, the [equals] MUST be overridden in the [NetworkListCubit] or [NetworkListBloc]. When extending [NetworkListCubit] or [NetworkListBloc], the IDE will warn that this method requires an override due to the missing implementation.
   FutureOr<void> removeItemAsync(T removedItem) async {
     emit(state.copyWithLoading() as S);
 
@@ -253,41 +249,44 @@ mixin NetworkListBaseMixin<T, S extends NetworkListStateBase<T>>
     }
   }
 
-  /// [onAddItemAsync] can optionally be overridden when creating [NetworkListCubit] or [NetworkListBloc] in order to call [addItemAsync] on respective instances.
+  /// Can optionally be overridden when creating [NetworkListCubit] or [NetworkListBloc] in order to call [addItemAsync] on respective instances.
   Future<T> onAddItemAsync(T newItem) {
     return Future.value(newItem);
   }
 
-  /// [onEditItemAsync] can optionally be overridden when creating [NetworkListCubit] or [NetworkListBloc] in order to call [editItemAsync] on respective instances.
+  /// Can optionally be overridden when creating [NetworkListCubit] or [NetworkListBloc] in order to call [editItemAsync] on respective instances.
   Future<T> onEditItemAsync(T updatedItem) {
     return Future.value(updatedItem);
   }
 
-  /// [onRemoveItemAsync] can optionally be overridden when creating [NetworkListCubit] or [NetworkListBloc] in order to call [removeItemAsync] on respective instances.
+  /// Can optionally be overridden when creating [NetworkListCubit] or [NetworkListBloc] in order to call [removeItemAsync] on respective instances.
   Future<bool> onRemoveItemAsync(T removedItem) {
     return Future.value(true);
   }
 
-  /// The [equals] is used by [editItem], [editItemAsync], [removeItem] and [removeItemAsync] to check for equality during update or delete operations.
+  /// The [equals] is used to identify the item during update or delete operations.
   ///
   /// Must be overridden when [NetworkListBloc] or [NetworkListCubit] is created. When extending [NetworkListBloc] or [NetworkListCubit], the IDE will warn that this method requires an override due to the missing implementation.
   bool equals(T item1, T item2);
 
   // Additional methods
 
-  /// Is a helper method that [addItemAsync] first, then returns the first `state` if the [NetworkStatus] is **not** `loading`.
+  /// Adds item to a `List` first, then returns a `state` with updated data.
+  ///
   Future<S> addItemAsyncFuture(T newItem) {
     addItemAsync(newItem);
     return getAsync();
   }
 
-  /// Is a helper method that [editItemAsync] first, then returns the first `state` if the [NetworkStatus] is **not** `loading`.
+  /// Edits item in a `List` first, then returns a `state` with updated data.
+  ///
   Future<S> editItemAsyncFuture(T updatedItem) {
     editItemAsync(updatedItem);
     return getAsync();
   }
 
-  /// Is a helper method that [removeItemAsync] first, then returns the first `state` if the [NetworkStatus] is **not** `loading`.
+  /// Removes item in a `List` first, then returns a `state` with updated data.
+  ///
   Future<S> removeItemAsyncFuture(T removedItem) {
     removeItemAsync(removedItem);
     return getAsync();

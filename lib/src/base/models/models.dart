@@ -1,17 +1,15 @@
-import 'index.dart';
-
 /// Represents the various network statuses.
 enum NetworkStatus {
-  /// [initial] is passed to the [NetworkState] constructor.
+  /// [initial] indicates that the data has not been loaded yet and is passed to the [NetworkState] constructor
   initial,
 
-  /// [loading] is passed to the [NetworkState.copyWithLoading] method.
+  /// [loading] indicates that the data is being loaded and is passed to the [NetworkState.copyWithLoading] method.
   loading,
 
-  /// [success] is passed to the [NetworkState.copyWithSuccess] method.
+  /// [success] indicates that the data has been successfully loaded and is passed to the [NetworkState.copyWithSuccess] method.
   success,
 
-  /// [failure] is passed to the [NetworkState.copyWithFailure] method.
+  /// [failure] indicates that an error has occurred and is passed to the [NetworkState.copyWithFailure] method.
   failure;
 
   bool get isInitial => this == initial;

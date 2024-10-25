@@ -5,16 +5,10 @@ part of 'index.dart';
 /// Inherits [data] and [status] from the [NetworkStateBase] and provides the new [visibleData] and [query] properties.
 ///
 abstract class NetworkSearchableStateBase<T> extends NetworkStateBase<T> {
-  /// Holds the data of type `T`, that will be displayed on the UI based on the user's search input [query].
+  /// Will be displayed on the UI based on the user's search input [query] to separate `visibleData` from the `data`.
   ///
-  /// ```dart
-  /// BlocBuilder<MyNetworkSearchableBloc, MyNetworkSearchableState<Data>>(
-  /// builder: (context, state) {
-  ///    return MyWidget(state.visibleData);
-  ///   }
-  /// );
-  /// ```
-
+  /// Will be displayed in the UI based on the search [query] to separate `visibleData` from the `data`.
+  ///
   T get visibleData;
 
   /// The search query itself.

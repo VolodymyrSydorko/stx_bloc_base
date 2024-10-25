@@ -87,7 +87,7 @@ The base class for handling data loading and updating, serves as a foundation fo
 
 ```dart
 class MyNetworkCubit extends NetworkCubit<String, NetworkState<String>> {
-  // `NetworkState` contains a `data` field of type `T` and a `status` field of type `NetworkStatus`, which is by default [NetworkStatus.initial]
+  // `NetworkState` contains a `data` field, `status` field `NetworkStatus`, which is by default [NetworkStatus.initial]
   MyNetworkCubit() : super(const NetworkState(data: ''));
 
   // MUST be overridden when extending `NetworkCubit`
@@ -141,7 +141,7 @@ The class responsible for handling search.
 class MyNetworkSearchableCubit extends NetworkSearchableCubit<List<String>,
     NetworkSearchableState<List<String>>> {
   MyNetworkSearchableCubit()
-      // `NetworkSearchableState` contains a `data` field of type `T` and a `visibleData` that will be used to display the data in the UI based on the user's search query input
+      // `NetworkSearchableState` contains a `data` field and a `visibleData` that will be used to display the data in the UI based on the user's search query input
       : super(const NetworkSearchableState(data: [], visibleData: []));
 
   @override
@@ -178,7 +178,7 @@ The class responsible for handling filtering.
 class MyNetworkFilterableCubit extends NetworkFilterableCubit<List<String>,
     bool, NetworkFilterableState<List<String>, bool>> {
   MyNetworkFilterableCubit()
-      // `NetworkFilterableState` contains a `data` field of type `T` and a `visibleData` that will be used to display the data in the UI based on the user's search query input and a `filter` field of type `F` that will be used to filter the data based on applied filter
+      // `NetworkFilterableState` contains a `data` field and a `visibleData` that will be used to display the data in the UI based on the user's search query input and a `filter` field that will be used to filter the data based on applied filter
 
       // Filter can be of any type, for example, `bool`, `int`, `String`, enum, etc.
       : super(const NetworkFilterableState(data: [], visibleData: []));

@@ -22,15 +22,16 @@ mixin NetworkSearchableBlocMixin<T, S extends NetworkSearchableStateBase<T>>
     on<NetworkEventSearchAsync>(onEventSearchAsync);
   }
 
-  /// [search] method of the [NetworkSearchableBlocMixin] overrides the [NetworkSearchableBaseMixin.search] and add the [NetworkEventSearch] to the [Bloc] event queue.
+  /// Overrides the [NetworkSearchableBaseMixin.search] and add the [NetworkEventSearch] to the [Bloc] event queue.
   ///
   /// When the event is added, the [onEventSearch] calls the the [NetworkSearchableBaseMixin.search] which invokes [search] internally.
+  ///
   @override
   void search(String query) => add(NetworkEventSearch(query));
 
-  /// [searchAsync] of the [NetworkSearchableBlocMixin] overrides the [NetworkSearchableBaseMixin.searchAsync] and adds the [NetworkEventUpdateAsync] to the [Bloc] event queue.
+  /// Overrides the [NetworkSearchableBaseMixin.searchAsync] and adds the [NetworkEventUpdateAsync] to the [Bloc] event queue.
   ///
-  /// When the event is added, the [onEventSearchAsync] calls the [NetworkSearchableBaseMixin.searchAsync] which invokes [searchAsync] internally.
+  /// When the event is added, the [onEventSearchAsync] calls the [NetworkSearchableBaseMixin.searchAsync] which invokes [onSearchAsync] internally.
   ///
   @override
   void searchAsync(String query) => add(NetworkEventSearchAsync(query));
@@ -52,7 +53,7 @@ mixin NetworkSearchableBlocMixin<T, S extends NetworkSearchableStateBase<T>>
 ///
 mixin NetworkSearchableBaseMixin<T, S extends NetworkSearchableStateBase<T>>
     on NetworkBaseMixin<T, S> {
-  /// Use to change the state based on the passed query locally.
+  /// Use to change the `visibleData` in a `state` based on the passed query locally.
   ///
   /// For this method to work properly, the [onStateChanged] MUST be overridden in the [NetworkSearchableCubit] or [NetworkSearchableBloc].
   ///
@@ -65,9 +66,7 @@ mixin NetworkSearchableBaseMixin<T, S extends NetworkSearchableStateBase<T>>
     );
   }
 
-  /// Use to asynchronously update the state based on the passed query.
-  ///
-  /// For this method to work properly, the [onStateChanged] MUST be overridden in the [NetworkSearchableCubit] or [NetworkSearchableBloc].
+  /// Use to asynchronously update the `state` based on the passed query.
   ///
   FutureOr<void> searchAsync(String query) async {
     emit(
@@ -92,12 +91,13 @@ mixin NetworkSearchableBaseMixin<T, S extends NetworkSearchableStateBase<T>>
     }
   }
 
-  /// [onSearchAsync] can optionally be overridden when creating [NetworkSearchableCubit] or [NetworkSearchableBloc] in order to call [searchAsync] on respective instances.
+  /// Can optionally be overridden when creating [NetworkSearchableCubit] or [NetworkSearchableBloc] in order to call [searchAsync] on respective instances.
   Future<T> onSearchAsync(String query) => Future.value();
 
   // Additional methods
 
-  /// Is a helper method that [searchAsync] first, then returns the first `state` if the [NetworkStatus] is **not** `loading`.
+  /// Performs a search, then returns a `state` with updated data.
+  ///
   Future<S> searchAsyncFuture(String query) {
     searchAsync(query);
     return getAsync();

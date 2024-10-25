@@ -5,7 +5,7 @@ part of 'index.dart';
 /// Inherits [data] and [status] from the [NetworkStateBase], and provides the new [visibleData] and [filter] properties.
 ///
 abstract class NetworkFilterableStateBase<T, F> extends NetworkStateBase<T> {
-  /// Holds the data of type `T`, that will be displayed in the UI based on the applied [filter].
+  /// Will be displayed in the UI based on the applied [filter] to separate `visibleData` from the `data`.
   ///
   T get visibleData;
 

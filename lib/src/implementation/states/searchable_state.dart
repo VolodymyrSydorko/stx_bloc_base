@@ -4,7 +4,8 @@ part of 'index.dart';
 ///
 class NetworkSearchableState<T> extends NetworkState<T>
     implements NetworkSearchableStateBase<T> {
-  /// Holds the data of type `T`, that will be displayed on the UI based on the user's search input [query].
+  /// Will be displayed in the UI based on the search [query] to separate `visibleData` from the `data`.
+  ///
   final T visibleData;
 
   /// The search query itself.
