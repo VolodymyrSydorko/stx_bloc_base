@@ -1,8 +1,14 @@
 part of 'index.dart';
 
+/// A `state` of the [NetworkSearchableCubit] and [NetworkSearchableBloc].
+///
 class NetworkSearchableState<T> extends NetworkState<T>
     implements NetworkSearchableStateBase<T> {
+  /// Will be displayed in the UI based on the search [query] to separate `visibleData` from the `data`.
+  ///
   final T visibleData;
+
+  /// The search query itself.
   final String? query;
 
   const NetworkSearchableState({

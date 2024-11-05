@@ -1,5 +1,9 @@
 part of 'index.dart';
 
+/// Is an interface class which serves as a base for the [NetworkExtraState].
+///
+/// Inherits [data] and [status] from the [NetworkStateBase], and provides the new [extraData] property.
+///
 abstract class NetworkExtraStateBase<T, E> extends NetworkStateBase<T> {
   E get extraData;
 
