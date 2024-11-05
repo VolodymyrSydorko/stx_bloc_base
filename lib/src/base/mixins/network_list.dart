@@ -267,6 +267,9 @@ mixin NetworkListBaseMixin<T, S extends NetworkListStateBase<T>>
   /// The [equals] is used to identify the item during update or delete operations.
   ///
   /// Must be overridden when [NetworkListBloc] or [NetworkListCubit] is created. When extending [NetworkListBloc] or [NetworkListCubit], the IDE will warn that this method requires an override due to the missing implementation.
+  ///
+  /// Typically positioned at the end of all method overrides.
+  ///
   bool equals(T item1, T item2);
 
   // Additional methods

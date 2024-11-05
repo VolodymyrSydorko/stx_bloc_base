@@ -3,11 +3,11 @@ import 'package:stx_bloc_base/src/implementation/index.dart';
 
 /// A utility class that combines search and filtering functionality with list manipulation methods by combining the functionality of [NetworkFilterableCubit] and [NetworkListCubit].
 ///
-///Example usage:
+/// Example usage:
 ///
-///```dart
+/// ```dart
 /// class MyNetworkFilterableListCubit
-///     extends NetworkFilterableListCubit<Note, Filter, MyState> {
+///     extends NetworkFilterableListCubit<Data, Filter, MyState> {
 ///   MyNetworkFilterableListCubit()
 ///       : super(
 ///           const MyState(
@@ -15,28 +15,8 @@ import 'package:stx_bloc_base/src/implementation/index.dart';
 ///             visibleData: [],
 ///           ),
 ///         );
-///
-///   // MUST be overridden when extending [NetworkListCubit].
-///   @override
-///   Future<List<Note>> onLoadAsync() async {
-///     // ...
-///   }
-///
-///   // Needs to be overridden when extending [NetworkFilterableListCubit] in order to `search` and `filter` methods to work.
-///   @override
-///   MyState onStateChanged(DataChangeReason reason, MyState state) {
-///     /// ..
-///   }
-///
-///   // MUST be overridden when extending [NetworkFilterableListCubit] as it is essential for data mutation operations.
-///   // Typically positioned at the end of all method overrides.
-///   @override
-///   bool equals(Note item1, Note item2) {
-///     // ...
-///   }
-///
-///```
-///
+/// }
+/// ```
 abstract class NetworkFilterableListCubit<T, F,
         S extends NetworkFilterableListState<T, F>>
     extends NetworkSearchableListCubit<T, S>

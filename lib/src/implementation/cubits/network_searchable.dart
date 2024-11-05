@@ -7,7 +7,7 @@ import 'package:stx_bloc_base/src/implementation/index.dart';
 ///
 /// ```dart
 /// // The state contains the `data` of any type in this case `List<String>` and `status` (NetworkStatus), which is by default [NetworkStatus.initial],
-/// // `visibleData` will be used to display the data in the UI based on the user's search input,
+/// // `visibleData` can be used to display the data in the UI based on the user's search input,
 /// // and `query` is used to store the user's search input.
 /// typedef MyData = List<String>;
 /// typedef MyState = NetworkSearchableState<MyData>;
@@ -22,23 +22,18 @@ import 'package:stx_bloc_base/src/implementation/index.dart';
 ///           ),
 ///         );
 ///
-///   // MUST be overridden when extending [NetworkSearchableCubit].
-///   @override
-///   Future<MyData> onLoadAsync() async {
-///     // ...
-///   }
-///
 ///   // Can optionally be overridden when extending [NetworkSearchableCubit] to perform search asynchronously.
 ///   @override
 ///   Future<MyData> onSearchAsync(String query) async {
 ///    // ...
 ///   }
 ///
-///   // Needs to be overridden when extending [NetworkSearchableCubit] in order to `search` method to work.
+/// // Override this method when extending [NetworkSearchableCubit] to perform a search based on the query passed from the `search` method.
 ///   @override
 ///   MyState onStateChanged(DataChangeReason reason, MyState state) {
 ///     // ...
 ///   }
+/// }
 ///```
 ///
 /// The [onSearchAsync] is invoked when [searchAsync] method is called from the UI.
@@ -50,8 +45,6 @@ import 'package:stx_bloc_base/src/implementation/index.dart';
 /// ```dart
 /// context.read<MySearchableCubit>().search(/* query */),
 /// ```
-///
-/// __Note:__ When working with `BlocBuilder`, the`state.visibleData` should be used.
 ///
 abstract class NetworkSearchableCubit<T, S extends NetworkSearchableState<T>>
     extends NetworkCubit<T, S> with NetworkSearchableBaseMixin<T, S> {

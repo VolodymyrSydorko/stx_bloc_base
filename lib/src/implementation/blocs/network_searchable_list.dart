@@ -6,10 +6,10 @@ import 'package:stx_bloc_base/src/implementation/index.dart';
 /// Example usage:
 ///
 /// ```dart
-/// typedef MyState = NetworkSearchableListState<Note>;
+/// typedef MyState = NetworkSearchableListState<Data>;
 ///
 /// class MyNetworkSearchableListBloc
-///     extends NetworkSearchableListBloc<Note, MyState> {
+///     extends NetworkSearchableListBloc<Data, MyState> {
 ///   MyNetworkSearchableListBloc()
 ///       : super(
 ///         const MyState(
@@ -17,24 +17,7 @@ import 'package:stx_bloc_base/src/implementation/index.dart';
 ///           visibleData: [],
 ///         ),
 ///       );
-///
-///  // MUST be overridden when extending [NetworkListBloc].
-///   @override
-///   Future<List<Note>> onLoadAsync() async {
-///     // ...
-///   }
-///
-///  // Needs to be overridden when extending [NetworkSearchableListBloc] in order to `search` method to work.
-///   @override
-///   MyState onStateChanged(DataChangeReason reason, MyState state) {
-///   // ...
 /// }
-/// // MUST be overridden when extending [NetworkSearchableListBloc] as it is essential for data mutation operations.
-///   // Typically positioned at the end of all method overrides.
-///   @override
-///   bool equals(Note item1, Note item2) {
-///    // ..
-///   }
 /// ```
 ///
 abstract class NetworkSearchableListBloc<T,

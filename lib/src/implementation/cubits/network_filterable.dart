@@ -6,10 +6,10 @@ import 'package:stx_bloc_base/src/implementation/index.dart';
 /// Example usage:
 ///
 /// ```dart
-/// typedef MyData = List<Note>;
+/// typedef MyData = List<Data>;
 /// // Any type can be used here as a filter, for example, `bool`, `int`, `String`, enum, etc.
 /// typedef MyState = NetworkFilterableState<MyData, Filter>;
-/// // The state contains the `data` of any type in this case `List<Note>` and `status` (NetworkStatus), which is by default [NetworkStatus.initial], `visibleData` will be used to display the data in the UI based on the user's search input,`query` is used to store the user's search input, and `filter` is used to store the user's filter.
+/// // The state contains the `data` of any type in this case `List<Data>` and `status` (NetworkStatus), which is by default [NetworkStatus.initial], `visibleData` can be used to display the data in the UI based on the user's search input,`query` is used to store the user's search input, and `filter` is used to store the user's filter.
 ///
 /// class MyNetworkFilterableCubit
 ///     extends NetworkFilterableCubit<MyData, Filter, MyState> {
@@ -22,24 +22,18 @@ import 'package:stx_bloc_base/src/implementation/index.dart';
 ///         ),
 ///       );
 ///
-///   // MUST be overridden when extending [NetworkFilterableCubit].
-///   @override
-///   Future<MyData> onLoadAsync() async {
-///     // ...
-///   }
-///
 ///   // Can optionally be overridden when extending [NetworkFilterableCubit] to perform filtering asynchronously.
 ///   @override
 ///   Future<MyData> onFilterAsync(Filter filter) {
 ///     // ...
 ///   }
 ///
-///   // Needs to be overridden when extending [NetworkFilterableCubit] in order to `search` and `filter` methods to work.
+/// // Override this method when extending [NetworkFilterableCubit] to perform a search based on the query passed from the `search` method or to filter the data based on the filter passed from the `filter` method.
 ///   @override
 ///   MyState onStateChanged(DataChangeReason reason, MyState state) {
 ///     // ...
 ///   }
-///
+/// }
 /// ```
 ///
 /// The [onFilterAsync] is invoked when [filterAsync] method is called from the UI.
@@ -52,8 +46,6 @@ import 'package:stx_bloc_base/src/implementation/index.dart';
 /// ```dart
 /// context.read<MyNetworkFilterableCubit>().filter(/* filter */),
 /// ```
-///
-/// __Note:__ When working with `BlocBuilder`, the`state.visibleData` should be used.
 ///
 abstract class NetworkFilterableCubit<T, F,
         S extends NetworkFilterableState<T, F>>

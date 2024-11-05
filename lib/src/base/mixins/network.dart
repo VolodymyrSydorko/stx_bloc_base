@@ -132,7 +132,7 @@ mixin NetworkBaseMixin<T, S extends NetworkStateBase<T>> on BlocBase<S> {
 
   /// Returns the `state` with modified `status`.
   ///
-  /// It accepts [state] and [reason] that has
+  /// Takes [state] and [reason] that have
   /// been updated (typically via `copyWithSuccess`) and ensures that the `status`
   /// field is set to `NetworkStatus.success`.
   ///

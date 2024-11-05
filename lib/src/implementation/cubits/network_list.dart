@@ -6,10 +6,10 @@ import 'package:stx_bloc_base/src/implementation/index.dart';
 /// Example usage:
 ///
 /// ```dart
-/// // In the state, specify the data type directly, such as <Note>, instead of using <List<Note>>. The state contains the `data` of any type in this case `List<Note>` and `status` (NetworkStatus), which is by default [NetworkStatus.initial].
-/// typedef MyState = NetworkListState<Note>;
+/// // In the state, specify the data type directly, such as <Data>, instead of using <List<Data>>. The state contains the `data` of any type in this case `List<Data>` and `status` (NetworkStatus), which is by default [NetworkStatus.initial].
+/// typedef MyState = NetworkListState<Data>;
 ///
-/// class MyNetworkListCubit extends NetworkListCubit<Note, MyState> {
+/// class MyNetworkListCubit extends NetworkListCubit<Data, MyState> {
 ///   MyNetworkListCubit()
 ///       : super(
 ///         const MyState(
@@ -17,37 +17,30 @@ import 'package:stx_bloc_base/src/implementation/index.dart';
 ///         ),
 ///       );
 ///
-///   // MUST be overridden when extending [NetworkListCubit].
-///   @override
-///   Future<List<Note>> onLoadAsync() async {
-///    // ...
-///   }
-///
 ///   // MUST be overridden when extending [NetworkListCubit] as it is essential for data mutation operations.
-///   // Typically positioned at the end of all method overrides.
 ///   @override
-///   bool equals(Note item1, Note item2) {
+///   bool equals(Data item1, Data item2) {
 ///     // ...
 ///   }
 ///
 ///   // Can optionally be overridden when extending [NetworkListCubit] to add new item asynchronously.
 ///   @override
-///   Future<Note> onAddItemAsync(Note newItem) async {
+///   Future<Data> onAddItemAsync(Data newItem) async {
 ///     // ...
 ///   }
 ///
 ///   // Can optionally be overridden when extending [NetworkListCubit] to edit an item asynchronously.
 ///   @override
-///   Future<Note> onEditItemAsync(Note updatedItem) {
+///   Future<Data> onEditItemAsync(Data updatedItem) {
 ///     // ...
 ///   }
 ///
 ///   // Can optionally be overridden when extending [NetworkListCubit] to remove an item asynchronously.
 ///   @override
-///   Future<bool> onRemoveItemAsync(Note removedItem) {
+///   Future<bool> onRemoveItemAsync(Data removedItem) {
 ///     // ...
 ///   }
-///
+/// }
 /// ```
 /// The [onAddItemAsync] is invoked when [addItemAsync] method is called from the UI.
 ///```dart
