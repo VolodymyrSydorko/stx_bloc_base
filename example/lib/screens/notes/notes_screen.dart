@@ -100,21 +100,16 @@ class NotesView extends StatelessWidget {
             ),
           ],
         ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        floatingActionButton: Row(
-          children: [
-            FloatingActionButton(
-              onPressed: () {
-                context.read<NotesBloc>().addItemAsync(
-                      Note(
-                        noteId: Random().nextInt(100),
-                        message: 'New note',
-                      ),
-                    );
-              },
-              child: const Icon(Icons.add),
-            ),
-          ],
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            context.read<NotesBloc>().addItemAsync(
+                  Note(
+                    noteId: Random().nextInt(100),
+                    message: 'New note',
+                  ),
+                );
+          },
+          child: const Icon(Icons.add),
         ),
       ),
     );
