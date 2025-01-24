@@ -1,3 +1,7 @@
+## 0.6.0
+
+- Update deps
+
 ## 0.5.1
 
 - Replaced tuple with records
