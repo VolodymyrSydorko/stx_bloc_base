@@ -1,7 +1,15 @@
+/// Represents the various network statuses.
 enum NetworkStatus {
+  /// [initial] indicates that the data has not been loaded yet and is passed to the [NetworkState] constructor
   initial,
+
+  /// [loading] indicates that the data is being loaded and is passed to the [NetworkState.copyWithLoading] method.
   loading,
+
+  /// [success] indicates that the data has been successfully loaded and is passed to the [NetworkState.copyWithSuccess] method.
   success,
+
+  /// [failure] indicates that an error has occurred and is passed to the [NetworkState.copyWithFailure] method.
   failure;
 
   bool get isInitial => this == initial;
@@ -10,22 +18,42 @@ enum NetworkStatus {
   bool get isFailure => this == failure;
 }
 
+/// The [AddPosition] specifies where to add the item in the list.
 enum AddPosition {
+  /// [start] specifies whether to add the item at the start of the `List`.
   start,
+
+  /// [end] specifies whether to add the item at the end of the `List`.
   end;
 
   bool get isStart => this == AddPosition.start;
   bool get isEnd => this == AddPosition.end;
 }
 
+/// Passed as an argument to [NetworkBaseMixin.onStateChanged] method.
 enum DataChangeReason {
+  /// [loaded] is passed when [NetworkBaseMixin.load] or [NetworkExtraBaseMixin.loadWithExtra] is called.
   loaded,
+
+  /// [extraLoaded] is passed when [NetworkExtraBaseMixin.loadExtra] is called.
   extraLoaded,
+
+  /// [updated] is passed when [NetworkBaseMixin.update] or [NetworkBaseMixin.updateAsync] is called.
   updated,
+
+  /// [updated] is passed when [NetworkListBaseMixin.addItem] or [NetworkListBaseMixin.addItemAsync] is called.
   itemAdded,
+
+  /// [itemEdited] is passed when [NetworkListBaseMixin.editItem] or [NetworkListBaseMixin.editItemAsync] is called.
   itemEdited,
+
+  /// [itemRemoved] is passed when [NetworkListBaseMixin.removeItem] or [NetworkListBaseMixin.removeItemAsync] is called.
   itemRemoved,
+
+  /// [searched] is passed when [NetworkSearchableBaseMixin.search] or [NetworkSearchableBaseMixin.searchAsync] is called.
   searched,
+
+  /// [filtered] is passed when [NetworkFilterableBaseMixin.filter] or [NetworkFilterableBaseMixin.filterAsync] is called.
   filtered;
 
   bool get isLoaded => this == loaded;
