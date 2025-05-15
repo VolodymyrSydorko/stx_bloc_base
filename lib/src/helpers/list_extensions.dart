@@ -6,6 +6,10 @@ extension ListExtension<T> on List<T> {
     return ((deepCopy ? toList() : this)..[index] = toReplace(this[index]));
   }
 
+  void replaceAt(int index, T newItem) {
+    this[index] = newItem;
+  }
+
   List<T> whereList(bool Function(T) test) => where(test).toList();
 
   List<T> mapList(T Function(T) toElement) => map(toElement).toList();

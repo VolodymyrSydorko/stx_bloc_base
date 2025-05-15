@@ -2,6 +2,13 @@
 
 - Replaced tuple with records
 
+## 0.6.0-beta.2
+
+- Added extraData into equals props for NetworkSearchableExtraState, NetworkFilterableExtraState
+- Changed onLoadWithExtraAsync to load data and extraData simultaneously
+- Added generic type into remove events
+- Fixed addItemAsync to copy data with newItem from response
+
 ## 0.6.0-beta.1
 
 - Add changeReason and failureReason to bloc state
