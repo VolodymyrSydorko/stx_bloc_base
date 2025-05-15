@@ -1,8 +1,4 @@
-## 0.5.1
-
-- Replaced tuple with records
-
-## 0.6.0-beta.2
+## 1.0.0-beta.2
 
 - Added extraData into equals props for NetworkSearchableExtraState, NetworkFilterableExtraState
 - Changed onLoadWithExtraAsync to load data and extraData simultaneously
@@ -13,6 +9,10 @@
 
 - Add changeReason and failureReason to bloc state
 - Implement optimistic events
+
+## 0.5.1
+
+- Replaced tuple with records
 
 ## 0.5.0
 
