@@ -84,6 +84,9 @@ class NetworkSearchableExtraState<T, E> extends NetworkSearchableState<T>
       query: query ?? this.query,
     );
   }
+
+  @override
+  List<Object?> get props => [...super.props, extraData];
 }
 
 class NetworkFilterableExtraState<T, F, E> extends NetworkFilterableState<T, F>
@@ -135,4 +138,7 @@ class NetworkFilterableExtraState<T, F, E> extends NetworkFilterableState<T, F>
       filter: filter ?? this.filter,
     );
   }
+
+  @override
+  List<Object?> get props => [...super.props, extraData];
 }

@@ -80,7 +80,7 @@ mixin NetworkExtraBaseMixin<T, E, S extends NetworkExtraStateBase<T, E>>
   }
 
   Future<(T data, E extra)> onLoadWithExtraAsync() async {
-    return (await onLoadAsync(), await onLoadExtraAsync());
+    return (onLoadAsync(), onLoadExtraAsync()).wait;
   }
 
   Future<S> loadWithExtraAsyncFuture() {

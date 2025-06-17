@@ -15,8 +15,8 @@ mixin NetworkListBlocMixin<T, S extends NetworkListStateBase<T>>
     on<NetworkEventAddItemAsync<T>>(onEventAddItemAsync);
     on<NetworkEventEditItem<T>>(onEventEditItem);
     on<NetworkEventEditItemAsync<T>>(onEventEditItemAsync);
-    on<NetworkEventRemoveItem>(onEventRemoveItem);
-    on<NetworkEventRemoveItemAsync>(onEventRemoveItemAsync);
+    on<NetworkEventRemoveItem<T>>(onEventRemoveItem);
+    on<NetworkEventRemoveItemAsync<T>>(onEventRemoveItemAsync);
   }
 
   @override
@@ -67,12 +67,12 @@ mixin NetworkListBlocMixin<T, S extends NetworkListStateBase<T>>
 
   @protected
   FutureOr<void> onEventRemoveItem(
-      NetworkEventRemoveItem event, Emitter<NetworkListStateBase<T>> emit) {
+      NetworkEventRemoveItem<T> event, Emitter<NetworkListStateBase<T>> emit) {
     super.removeItem(event.item);
   }
 
   @protected
-  FutureOr<void> onEventRemoveItemAsync(NetworkEventRemoveItemAsync event,
+  FutureOr<void> onEventRemoveItemAsync(NetworkEventRemoveItemAsync<T> event,
       Emitter<NetworkListStateBase<T>> emit) {
     return super.removeItemAsync(event.item);
   }
