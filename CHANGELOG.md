@@ -1,3 +1,8 @@
+## 0.6.1
+
+- Added extraData into equals props for NetworkSearchableExtraState, NetworkFilterableExtraState
+- Changed onLoadWithExtraAsync to load data and extraData simultaneously
+
 ## 0.6.0
 
 - Update deps

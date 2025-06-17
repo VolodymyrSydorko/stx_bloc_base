@@ -1,6 +1,6 @@
 name: stx_bloc_base
 description: The package provides various generic implementations of blocs.
-version: 0.6.0
+version: 0.6.1
 
 homepage: https://github.com/VolodymyrSydorko/stx_bloc_base
 documentation: https://github.com/VolodymyrSydorko/stx_bloc_base
